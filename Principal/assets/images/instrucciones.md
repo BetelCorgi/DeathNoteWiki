@@ -1,0 +1,1 @@
+Este archivo se puede borrar pero aqui poner los iconos de la pagina y todas las imagenes que se usen incluso de los personajes
