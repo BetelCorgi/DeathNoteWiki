@@ -108,6 +108,18 @@ body > * {
 .logo {
     height: 60px;
     filter: drop-shadow(0 2px 8px #000a);
+    transition: filter 0.3s ease;
+}
+
+.logo-container a:hover .logo {
+    filter: drop-shadow(0 0 12px #e0c48b) brightness(1.1);
+}
+
+.logo-container:hover ~ .nav-left .nav-list li a,
+.logo-container:hover ~ .nav-right .nav-list li a {
+    color: #e0c48b;
+    text-shadow: 0 0 8px #fff3d1;
+    transition: all 0.3s ease;
 }
 
 /* Botón 'Ver' estilo papel cortado */
@@ -173,8 +185,25 @@ body > * {
     transition: color 0.2s;
 }
 .footer-categories a:hover {
-    color: #fff;
-    text-shadow: 0 0 8px #e0c48b;
+    color: #ffe6b3;
+    text-shadow: 0 0 8px #fff3d1;
+}
+
+a.selectedbtn, .nav-list li a.selectedbtn {
+    color: #bb903a !important;
+    text-shadow: 0 0 8px #ffe6b3, 0 0 2px #fffbe6 !important;
+    font-weight: bold;
+}
+
+.nav-list li a.selectedbtn:hover {
+    color: #bb903a !important;
+    text-shadow: 0 0 8px #ffe6b3, 0 0 2px #fffbe6 !important;
+}
+
+/* Aplicar estilo directamente al elemento */
+header .nav-list li a[href="#personajes"] {
+    color: #bb903a !important;
+    text-shadow: 0 0 8px #ffe6b3, 0 0 2px #fffbe6 !important;
 }
 
 main {
