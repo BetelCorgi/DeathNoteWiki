@@ -1,0 +1,217 @@
+/* Fondo principal fijo */
+html, body {
+    background-color: #000000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background: none;
+    position: relative;
+    z-index: 1;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: -5px; left: -5px; right: -5px; bottom: -5px; /* Extender más allá de los bordes */
+    z-index: 0;
+    background: url('../images/WallpaperPrincipal.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(18px) brightness(0.75);
+    opacity: 0.95;
+    pointer-events: none;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+/* Asegura que el contenido esté sobre el fondo */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navbar superior */
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 2vw;
+    background: rgba(10, 10, 10, 0.65);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    height: 80px;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.nav-list {
+    display: flex;
+    gap: 3vw;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    padding: 0 3vw;
+}
+
+.nav-left {
+    margin-right: 2vw;
+}
+
+.nav-right {
+    margin-left: 2vw;
+}
+
+.nav-list li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    font-family: 'UnifrakturCook', cursive;
+    transition: color 0.2s;
+}
+
+.nav-list li a:hover {
+    color: #e0c48b;
+}
+
+.logo-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+    filter: drop-shadow(0 2px 8px #000a);
+}
+
+/* Botón 'Ver' estilo papel cortado */
+.ver-btn {
+    position: absolute;
+    right: 5vw; /* Posición más centrada */
+    top: 16px;
+    background: #f6e6c4;
+    color: #222;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 1.1rem;
+    padding: 0.5em 1.4em 0.5em 1.1em;
+    border: none;
+    border-radius: 0 18px 8px 18px/18px 8px 18px 8px;
+    box-shadow: 2px 3px 12px #0005;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    text-decoration: none;
+    outline-offset: -5px;
+    transition: filter 0.18s, transform 0.18s;
+    filter: drop-shadow(0 2px 8px #000a);
+}
+.ver-btn:hover {
+    filter: brightness(0.95) drop-shadow(0 0 12px #e0c48b);
+    transform: scale(1.04) rotate(-2deg);
+}
+.play-icon {
+    font-size: 1.2em;
+    margin-right: 0.2em;
+}
+
+/* Footer con transparencia y glassmorphism */
+.footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgba(10, 10, 10, 0.67);
+    color: #fff;
+    padding: 0.6em 0;
+    text-align: center;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -2px 16px #000a;
+}
+.footer-categories {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw; /* Mayor espacio entre elementos */
+    width: 80%; /* Ancho controlado */
+    max-width: 800px; /* Ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+.footer-categories a {
+    color: #e0c48b;
+    text-decoration: none;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+.footer-categories a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #e0c48b;
+}
+
+main {
+    min-height: 70vh;
+}
+
+/* Responsive básico */
+@media (max-width: 900px) {
+    .navbar, .footer-categories {
+        gap: 1vw;
+    }
+    .logo {
+        height: 45px;
+    }
+    .ver-btn {
+        font-size: 1rem;
+        padding: 0.4em 1em 0.4em 0.8em;
+    }
+}
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 1vw;
+    }
+    .logo-container {
+        position: static;
+        transform: none;
+        margin: 0.5em 0;
+    }
+    .footer-categories {
+        flex-direction: column;
+        gap: 0.5em;
+    }
+    .ver-btn {
+        position: static;
+        margin: 0.7em auto 0 auto;
+        display: block;
+    }
+}
