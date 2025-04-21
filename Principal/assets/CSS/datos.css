@@ -37,7 +37,7 @@
     right: -5px;
     bottom: -5px; /* Extiende más allá de los bordes */
     z-index: 0;
-    background: #222222;
+    background: #000000;
     background-size: cover;
     filter: blur(18px) brightness(0.75);
     opacity: 0.95;
@@ -603,3 +603,188 @@ p {
         margin-bottom: 20px;
     }
 }
+
+
+
+a {
+    color: #c0c0c0;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #fff;
+}
+
+.biografia-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 60px 30px;
+    max-width: 1800px;
+    background: #000000;
+    margin: auto;
+    flex-wrap: wrap;
+    min-height: 100vh; /* Asegura que el body cubra toda la pantalla */
+
+}
+
+.biografia-izquierda, .biografia-derecha {
+    display: none;
+}
+
+.biografia-medio {
+    background: rgba(20, 20, 20, 0.92);
+    padding: 40px;
+    border: 1px solid #333;
+    border-radius: 14px;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.05);
+    flex: 2 1 1000px;
+    min-width: 320px;
+}
+
+.biografia-title-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.biografia-title {
+    font-size: 3.3em;
+    color: #e0e0e0;
+    letter-spacing: 5px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 12px;
+}
+
+.biografia-nav {
+    text-align: center;
+    margin: 25px 0;
+    font-size: 1.15em;
+    letter-spacing: 1.5px;
+}
+
+.biografia-section p,
+.biografia-catering p {
+    font-size: 1.15em;
+    line-height: 1.85;
+    margin: 15px 0;
+    color: #dddddd;
+}
+
+.biografia-flex {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.biografia-parrafos {
+    flex: 1 1 350px;
+}
+
+.biografia-texto-gris {
+    color: #999;
+    font-style: italic;
+}
+
+.biografia-foto-container img {
+    width: 100%;
+    max-width: 250px;
+    border: 2px solid #222;
+    border-radius: 8px;
+    filter: grayscale(100%) brightness(0.9);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.biografia-foto-container img:hover {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+}
+
+.biografia-subtitulo {
+    font-size: 2.3em;
+    margin-bottom: 12px;
+    color: #d4d4d4;
+    border-left: 4px solid #555;
+    padding-left: 12px;
+}
+
+.biografia-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.biografia-galeria img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #222;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.biografia-galeria img:hover {
+    transform: scale(1.08);
+    filter: grayscale(0%);
+}
+
+.biografia-sucursales iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    filter: grayscale(100%) contrast(1.1);
+    border-radius: 10px;
+    transition: filter 0.3s ease;
+}
+
+.biografia-sucursales iframe:hover {
+    filter: grayscale(0%) contrast(1);
+}
+
+@media (min-width: 1024px) {
+    .biografia-izquierda, .biografia-derecha {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex: 0 0 200px;
+        max-width: 200px;
+        filter: grayscale(100%);
+        opacity: 0.85;
+        transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .biografia-izquierda img, .biografia-derecha img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 1px solid #222;
+        box-shadow: 0 0 25px rgba(255,255,255,0.05);
+        transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .biografia-izquierda img:hover, .biografia-derecha img:hover {
+        transform: scale(1.05);
+        filter: grayscale(0%) brightness(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .biografia-flex-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 30px 10px;
+    }
+
+    .biografia-medio {
+        padding: 25px;
+    }
+}
+
+

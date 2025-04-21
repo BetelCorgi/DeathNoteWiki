@@ -24,3 +24,48 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.col-md-4').forEach(item => {
     observer.observe(item);
 });
+
+var navIzq = $(".izquierda");
+var navDer = $(".derecha");
+var title = $(".floating-container-title");
+var izqImg = $(".izquierda > img");
+var derImg = $(".derecha > img");
+
+var limit = 1605;
+if($window.innerWidth > 1900) {
+    limit = 1335;
+}
+
+$(window).scroll(function () {
+
+    console.log($(this).scrollTop());
+    if ($(this).scrollTop() > 145 && $(this).scrollTop() < limit) {
+        navIzq.addClass("fixed-floating-nav");
+        navDer.addClass("fixed-floating-nav");
+    } else {
+        navIzq.removeClass("fixed-floating-nav");
+        navDer.removeClass("fixed-floating-nav");
+    }
+
+    if ($(this).scrollTop() > limit) {
+        navIzq.addClass("relative-floating-nav");
+        navDer.addClass("relative-floating-nav");
+        izqImg.addClass("relative-floating-img");
+        derImg.addClass("relative-floating-img");
+    }else {
+        navIzq.removeClass("relative-floating-nav");
+        navDer.removeClass("relative-floating-nav");
+        izqImg.removeClass("relative-floating-img");
+        derImg.removeClass("relative-floating-img");
+    }
+
+
+
+
+
+    if ($(this).scrollTop() > 145) {
+        title.addClass("fixed-floating-title");
+    } else {
+        title.removeClass("fixed-floating-title");
+    }
+});
