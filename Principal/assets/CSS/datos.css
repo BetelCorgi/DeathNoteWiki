@@ -1,3 +1,62 @@
+/* Fondo principal fijo */
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Open+Sans:300,400');
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700');
+
+#htmlData, #bodyData {
+    background-color: #000000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Para #htmlData y #bodyData con overflow: auto */
+#htmlData, #bodyData {
+    overflow: auto !important; /* Permitimos el scroll en estas configuraciones */
+}
+
+/* Estilos de bodyData */
+#bodyData {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background: none;
+    position: relative;
+    z-index: 1;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Fondo de la imagen para bodyData */
+#bodyData::before {
+    content: '';
+    position: fixed;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px; /* Extiende más allá de los bordes */
+    z-index: 0;
+    background: #222222;
+    background-size: cover;
+    filter: blur(18px) brightness(0.75);
+    opacity: 0.95;
+    pointer-events: none;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Asegura que el contenido esté sobre el fondo */
+#bodyData > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -195,4 +254,352 @@ p {
     font-family: 'Nothing You Could Do', cursive;
     margin: 2.5rem 0 5.5rem;
 
+}
+
+
+
+#containerInfo {
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    font-family: sans-serif;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/56El17WVXXqyZCZvSC8Nyc8yPgx.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow: auto;
+}
+
+input {
+    background: none;
+    border: none;
+    border-bottom: .05rem solid white;
+    transition: border-bottom .2s ease-in;
+    color: white;
+    font-size: 1.5rem;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: .15rem solid white;
+}
+
+#searchButton {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: .5rem 2rem;
+    border-radius: .5rem;
+}
+
+#searchButton:focus {
+    outline: none;
+}
+
+#searchIcon {
+    width: 2rem;
+    top: 10px;
+    left: 10px;
+}
+
+#searchIcon path {
+    transform: scale(0.04);
+}
+
+#results {
+    background: rgba(0,0,0,.8);
+}
+
+#movie {
+    text-align: left;
+    margin-top: 1em;
+}
+
+h1 {
+    color: white;
+}
+
+h2, h3 {
+    color: #00ce71;
+    font-weight: 200;
+}
+
+p {
+    color: white;
+}
+.movie-details-container{
+    overflow:auto;
+}
+
+.row {
+    overflow: auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.column {
+    float: left;
+}
+.column-md {
+    width: 50%;
+}
+.column-lg {
+    width: 100%;
+}
+.badge {
+    background-color: #4b017b;
+    padding:.3rem 1rem;
+    border-radius: 4px;
+}
+#date {
+    font-size:1.5rem;
+    font-weight: 200;
+}
+#poster {
+    padding-right: 10px;
+    max-width: 100%;
+}
+
+#tagline {
+    color: #00ce71;
+}
+#genres, #runtime,#rating,#companies {
+    color: white;
+}
+
+#related {
+    color: white;
+    padding: 0;
+}
+
+#related li {
+    list-style: none;
+    cursor: pointer;
+}
+
+
+/*Scroll con movimiento*/
+#anime-portfolio-container {
+    padding: 80px 20px;
+    background: #000;
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+.anime-portfolio-header h2.anime-portfolio-title {
+    font-size: 3rem;
+    color: #f5f5f5;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.anime-portfolio-header h3.anime-portfolio-subtitle {
+    font-size: 1.1rem;
+    color: #aaaaaa;
+    margin-bottom: 50px;
+    font-style: italic;
+}
+
+.anime-portfolio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.anime-portfolio-item {
+    width: 300px;
+    height: 400px; /* Tamaño fijo para evitar que se estire con más texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.anime-portfolio-item:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.anime-a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+}
+
+.anime-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.anime-portfolio-item:hover .anime-img {
+    filter: grayscale(0%) contrast(1.05);
+    transform: scale(1.05);
+}
+
+.anime-portfolio-caption {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.anime-h4 {
+    color: #f5f5f5;
+    font-size: 1.3rem;
+    margin: 10px 0 5px;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.anime-p {
+    color: #999;
+    font-size: 0.9rem;
+    margin: 0;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .anime-portfolio-item {
+        width: 90%;
+        height: 400px;
+    }
+}
+
+
+/*Servicios*/
+#services {
+    padding: 100px 0;
+    background: #000;
+    color: #f5f5f5;
+    font-family: 'Georgia', serif;
+    text-align: center;
+}
+
+#services .section-heading {
+    font-size: 3rem;
+    color: #f5f5f5;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+#services .section-subheading {
+    font-size: 1.1rem;
+    color: #aaaaaa;
+    margin-bottom: 50px;
+    font-style: italic;
+}
+
+#services .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+#services .col-md-4 {
+    width: 100%;
+    max-width: 750px; /* Más ancho */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 50px 30px; /* Más padding para que sea más gordito */
+    text-align: left;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px; /* Aquí agrego espacio natural entre imagen y texto */
+
+}
+
+#services .col-md-4.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#services .service-content {
+    flex: 1;
+}
+
+#services .fa-stack {
+    font-size: 4rem;
+    color: #f5f5f5;
+    margin-bottom: 20px;
+    filter: grayscale(100%) contrast(1.2);
+    transition: filter 0.4s ease;
+}
+
+#services .col-md-4:hover .fa-stack {
+    filter: grayscale(0%) contrast(1);
+}
+
+#services .service-heading {
+    font-size: 1.8rem;
+    color: #f5f5f5;
+    margin: 15px 0;
+}
+
+#services p {
+    font-size: 1rem;
+    color: #aaaaaa;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+#services .service-img {
+    width: 180px;  /* Imagen más grande */
+    height: 180px; /* Imagen más grande */
+    background-color: #222;
+    border-radius: 50%;
+    margin-left: 5px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+#services .service-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+#services .col-md-4:hover .service-img img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    #services .col-md-4 {
+        flex-direction: column;
+        width: 90%;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    #services .service-img {
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
 }
