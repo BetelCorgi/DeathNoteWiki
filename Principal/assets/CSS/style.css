@@ -426,7 +426,17 @@ main {
     color: #ffffff;
     text-align: left;
     font-size: 2.5rem;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.personaje-tituloBox {
+    font-family: 'UnifrakturCook', cursive;
+    color: #ffffff;
+    text-align: left;
+    font-size: 1.7rem;
+    margin-bottom: 20px;
     text-shadow:
             0 0 5px rgba(255, 255, 255, 0.8);
 }
