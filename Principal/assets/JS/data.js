@@ -69,3 +69,44 @@ $(window).scroll(function () {
         title.removeClass("fixed-floating-title");
     }
 });
+
+
+
+// Guardar cambios en localStorage
+document.getElementById('saveButton').addEventListener('click', function() {
+    // Recoger todos los valores de los elementos contenteditable
+    const rows = document.querySelectorAll('.deathnote-table tbody tr');
+    let data = [];
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td span');
+        let rowData = [];
+        cells.forEach(cell => {
+            rowData.push(cell.innerText); // Usar innerText para recoger el texto visible
+        });
+        data.push(rowData);
+    });
+
+    // Almacenar los datos en localStorage
+    localStorage.setItem('deathNoteData', JSON.stringify(data));
+
+    alert('Cambios guardados!');
+});
+
+// Cargar datos desde localStorage al cargar la página
+window.onload = function() {
+    const savedData = localStorage.getItem('deathNoteData');
+    if (savedData) {
+        const data = JSON.parse(savedData);
+        const rows = document.querySelectorAll('.deathnote-table tbody tr');
+
+        data.forEach((rowData, rowIndex) => {
+            const cells = rows[rowIndex].querySelectorAll('td span');
+            rowData.forEach((cellData, cellIndex) => {
+                cells[cellIndex].innerText = cellData; // Actualizar el texto editable
+            });
+        });
+    }
+};
+
+
