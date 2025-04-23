@@ -266,13 +266,10 @@ p {
 }
 
 
-
-/*Cuadro de imagenes estilo*/
-
 .deathnote-container {
-    max-width: 100rem;
+    max-width: 90rem;
     margin: 0 auto;
-    padding: 0 2rem 2rem;
+    padding: 4rem;
     background-color: #000000;
 }
 
@@ -280,67 +277,58 @@ p {
     font-family: 'Cinzel', serif;
     font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.5;
     text-align: center;
-    padding: 3rem 0;
     color: #f2f2f2;
     letter-spacing: 1px;
     text-shadow: 0 0 10px #000000;
-}
-
-.deathnote-title span {
-    display: block;
-    font-size: 2rem;
-    color: #888;
+    margin-bottom: 3rem;
 }
 
 .deathnote-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Esto centra el contenido horizontalmente */
-    gap: 2rem; /* Esto crea espacio entre las imágenes */
-    margin-top: 4rem; /* Separación del título */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-items: center;
 }
 
 .deathnote-card {
-    flex: 1 0 24rem;
-    margin: 1rem;
-    overflow: hidden;
-    border: 2px solid #000000;
+    background-color: #111;
+    border: 2px solid #222;
     border-radius: 8px;
     box-shadow: 0 0 15px #000000;
     transition: transform 300ms ease, box-shadow 300ms ease;
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
 }
 
 .deathnote-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 25px #e0c48b;
+    box-shadow: 0 0 75px #e0c48b;
 }
 
 .deathnote-image {
-    display: block;
     width: 100%;
-    height: 100%;
+    height: 368px;
     object-fit: cover;
     transition: transform 0.4s ease-out;
 }
 
 .deathnote-card:hover .deathnote-image {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* Responsive grid with CSS Grid support */
-@supports (display: grid) {
-    .deathnote-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
-        grid-gap: 2rem;
-    }
-
-    .deathnote-gallery,
-    .deathnote-card {
-        margin: 0;
-    }
+.deathnote-caption {
+    padding: 1rem;
+    font-family:  'Death Note Font', sans-serif;
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    text-align: center;
+    background-color: #000000;
+    border-top: 1px solid #e0c48b; /* Línea separadora entre imagen y título */
 }
 
 /* Responsive: Ocultar título en pantallas pequeñas */
