@@ -4,8 +4,7 @@ html, body {
     outline: none !important;
     box-shadow: none !important;
     border: none !important;
-    overflow-x: hidden;
-  overflow-y: auto;
+    overflow: auto;
 }
 body {
     min-height: 100vh;
@@ -21,7 +20,7 @@ body {
 }
 body::before {
     content: '';
-    position: fixed;
+    position: absolute;
     top: -5px; left: -5px; right: -5px; bottom: -5px; /* Extender más allá de los bordes */
     z-index: 0;
     background: url('../images/WallpaperPrincipal.jpg') no-repeat center center fixed;
