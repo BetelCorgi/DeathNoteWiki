@@ -4,7 +4,8 @@ html, body {
     outline: none !important;
     box-shadow: none !important;
     border: none !important;
-    overflow: hidden !important;
+    overflow-x: hidden;
+  overflow-y: auto;
 }
 body {
     min-height: 100vh;
@@ -35,23 +36,58 @@ body::before {
 /* Asegura que el contenido esté sobre el fondo */
 body > * {
     position: relative;
-    z-index: 1;
 }
 
+/* Scrollbar personalizado Death Note */
+::-webkit-scrollbar {
+    width: 13px;
+    background: #181414;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #e0c48b 60%, #bfa76a 100%);
+    border-radius: 8px;
+    border: 2.5px solid #181414;
+    box-shadow: 0 0 8px #000a;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #f6e6c4 65%, #e0c48b 100%);
+    border-color: #e0c48b;
+}
+::-webkit-scrollbar-track {
+    background: #181414;
+    border-radius: 8px;
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #e0c48b #181414;
+}
+
+
 /* Navbar superior */
+/* Navbar always visible at the top */
 .navbar {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     padding: 0 2vw;
     background: rgba(10, 10, 10, 0.65);
     box-shadow: 0 2px 12px rgba(0,0,0,0.5);
     height: 80px;
-    z-index: 10;
+    z-index: 100;
     backdrop-filter: blur(6px);
 }
+
+/* Add padding to body to prevent content being hidden by fixed navbar */
+body {
+    padding-top: 80px;
+}
+
 
 .nav-container {
     display: flex;
@@ -345,8 +381,8 @@ a.selectedbtn, .nav-list li a.selectedbtn {
 }
 
 .boton-personaje.leerMas {
-    center: 50%;
-    transform: translate(0);
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 1%;
 }
 
@@ -374,6 +410,176 @@ header .nav-list li a[href="#personajes"] {
 main {
     min-height: 70vh;
 }
+
+/* Estilos para la sección extendida de personajes */
+.personaje-extra {
+    width: 100%;
+    padding: 40px 0 80px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.94) 90%, rgba(0,0,0,0.90) 100%);
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #e0c48b;
+    overflow-x: hidden;
+}
+
+.personaje-extra-container {
+    max-width: 1000px;
+    width: 95%;
+    background: rgba(18, 18, 18, 0.93);
+    border-radius: 14px;
+    padding: 36px 32px 36px 32px;
+    box-shadow: 0 0 30px #000a;
+    backdrop-filter: blur(7px);
+    margin: 0 auto;
+}
+
+.personaje-extra h2 {
+    font-family: 'UnifrakturCook', cursive;
+    color: #e0c48b;
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    text-align: center;
+    text-shadow: 0 0 14px rgba(224, 196, 139, 0.6);
+    border-bottom: 2px solid rgba(224, 196, 139, 0.3);
+    padding-bottom: 12px;
+    letter-spacing: 1.5px;
+}
+
+.personaje-extra h3 {
+    font-family: 'UnifrakturCook', cursive;
+    color: #e0c48b;
+    font-size: 1.35rem;
+    margin: 30px 0 13px 0;
+    text-shadow: 0 0 7px rgba(224, 196, 139, 0.5);
+    border-left: 3px solid #e0c48b;
+    padding-left: 10px;
+}
+
+.personaje-extra p {
+    color: #f5e6c5;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    text-align: justify;
+    text-shadow: 0 1px 2px #000a;
+}
+
+.personaje-extra ul {
+    list-style-type: disc;
+    padding-left: 28px;
+    margin-bottom: 22px;
+}
+
+.personaje-extra li {
+    color: #fffbe3;
+    margin-bottom: 10px;
+    font-size: 1.01rem;
+    padding-left: 2px;
+    border-left: none;
+    text-shadow: 0 1px 2px #000a;
+}
+
+.personaje-extra strong {
+    color: #e0c48b;
+    margin-right: 5px;
+    font-weight: bold;
+    text-shadow: 0 0 6px #000c;
+}
+
+.personaje-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin: 28px 0 20px 0;
+}
+
+.personaje-imagen-extra {
+    width: 100%;
+    height: 170px;
+    background: linear-gradient(135deg, #1a1817 60%, #26221c 100%);
+    border: 1.5px solid #e0c48b44;
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px #0008;
+    transition: all 0.2s;
+}
+
+.personaje-imagen-extra:hover {
+    transform: scale(1.04);
+    border-color: #e0c48b;
+    box-shadow: 0 0 18px rgba(224, 196, 139, 0.18);
+}
+
+.personaje-imagen-extra2{
+    width: 100%;
+    height: 210px;
+    background: linear-gradient(135deg, #1a1817 60%, #26221c 100%);
+    border: 1.5px solid #e0c48b44;
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px #0008;
+    transition: all 0.2s;
+}
+
+.personaje-imagen-extra2:hover{
+    transform: scale(1.04);
+    border-color: #e0c48b;
+    box-shadow: 0 0 18px rgba(224, 196, 139, 0.18);
+}
+
+.personaje-relaciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+.personaje-relacion-texto {
+    flex: 2 1 300px;
+}
+.personaje-relaciones .personaje-imagen-extra,
+.personaje-relaciones .personaje-galeria {
+    flex: 1 1 180px;
+    min-width: 170px;
+}
+
+@media (max-width: 900px) {
+    .personaje-extra-container {
+        padding: 17px 5vw 24px 5vw;
+    }
+    .personaje-galeria {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+    .personaje-imagen-extra {
+        height: 110px;
+    }
+    .personaje-relaciones {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .personaje-extra h2 {
+        font-size: 1.3rem;
+    }
+    .personaje-extra h3 {
+        font-size: 1.05rem;
+    }
+    .personaje-extra p, .personaje-extra li {
+        font-size: 0.93rem;
+    }
+    .personaje-extra-container {
+        padding: 8px 2vw 12px 2vw;
+    }
+}
+
 
 /* Estilos para la página de detalle de personaje */
 .personaje-detalle {
@@ -588,6 +794,10 @@ body.mello::before {
         height: auto;
         padding: 1vw;
     }
+    /* Add more padding to body for mobile navbar */
+    body {
+        padding-top: 100px;
+    }
     .logo-container {
         position: static;
         transform: none;
@@ -602,4 +812,23 @@ body.mello::before {
         margin: 0.7em auto 0 auto;
         display: block;
     }
+    /* Responsive horizontal scroll for character gallery */
+    .personaje-galeria {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 12px;
+        padding-bottom: 10px;
+        scrollbar-color: #e0c48b #181414;
+        scrollbar-width: thin;
+    }
+    .personaje-imagen-extra {
+        min-width: 160px;
+        flex: 0 0 auto;
+    }
 }
+
+/* --- Custom Scrollbar Styles --- */
+/* See above for WebKit and Firefox scrollbar customization */
+/* --- Responsive Gallery Styles --- */
+/* See mobile media query for .personaje-galeria horizontal scroll */
