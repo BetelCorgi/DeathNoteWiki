@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Open+Sans:300,400');
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700');
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+@import url("https://use.typekit.net/euz1eqv.css");
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:400;500&display=swap');
+
+
+/* Configuración base para html y body personalizados */
+#htmlData, #bodyData {
+    background-color: #000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: auto !important;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+/* Fondo visual desenfocado y tenue */
+#bodyData::before {
+    content: '';
+    position: fixed;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: 0;
+    background: #000;
+    background-size: cover;
+    filter: blur(18px) brightness(0.75);
+    opacity: 0.95;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.splitview {
+    position: relative;
+    width: 100%;
+    min-height: 35vw; /* Ajustado para menos alto */
+    overflow: hidden;
+    font-family: 'Georgia', serif;
+    border-radius: 15px; /* Bordes redondeados para suavizar el diseño */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7); /* Sombra más profunda para darle un toque más dramático */
+    transition: all 0.5s ease; /* Transición suave para cambios */
+}
+
+.splitview:hover {
+    box-shadow: 0 0 50px #e0c48b; /* Efecto hover más dramático */
+    transform: scale(1.05); /* Efecto de escala para resaltar */
+}
+
+/* Paneles */
+.panel {
+    position: absolute;
+    width: 100vw;
+    min-height: 35vw; /* Ajustado */
+    overflow: hidden;
+    border-radius: 15px; /* Bordes redondeados en paneles */
+}
+
+.panel .content {
+    position: absolute;
+    width: 100vw;
+    min-height: 35vw; /* Ajustado */
+    color: #F5F5F5;
+    text-shadow: 1px 1px 3px black;
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados para la caja de contenido */
+}
+
+.panel .description {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #EAEAEA;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente para la descripción */
+    padding: 15px;
+    border-radius: 10px; /* Bordes redondeados para las descripciones */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Sombra sutil en las descripciones */
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+}
+
+.panel .description:hover {
+    background-color: #bb903a; /* Efecto hover con color rojo */
+    transform: scale(1.05); /* Efecto de escala para resaltar */
+}
+
+/* Imágenes en panel */
+.panel img {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    width: 20%; /* Imagen más pequeña */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px; /* Bordes redondeados para las imágenes */
+    transition: all 0.5s ease; /* Transición suave */
+}
+
+.panel img:hover {
+    transform: translate(-50%, -50%) scale(1.1); /* Efecto de zoom al pasar el mouse */
+}
+
+/* Fondo oscuro estilo Death Note */
+.bottom {
+    background: linear-gradient(145deg, #0a0a0a, #000000);
+    z-index: 1;
+    border-radius: 15px; /* Bordes redondeados */
+}
+
+.bottom .description {
+    right: 5%;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 3px black;
+}
+
+/* Parte superior con tono rojo oscuro dramático */
+.top {
+    background: linear-gradient(145deg, #bb903a, #e0c48b);
+    z-index: 2;
+    width: 50vw;
+    border-radius: 15px; /* Bordes redondeados */
+}
+
+.top .description {
+    left: 5%;
+    color: #ffffff;
+}
+
+/* Línea divisor */
+.handle {
+    height: 100%;
+    position: absolute;
+    display: block;
+    background-color: #000000;
+    width: 4px; /* Más fino */
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    border-radius: 2px; /* Bordes ligeramente redondeados para el divisor */
+}
+
+/* Efecto skew para separación diagonal */
+.skewed .handle {
+    top: 50%;
+    transform: rotate(30deg) translateY(-50%);
+    height: 200%;
+    transform-origin: top;
+}
+
+.skewed .top {
+    transform: skew(-30deg);
+    margin-left: -1000px;
+    width: calc(50vw + 1000px);
+}
+
+.skewed .top .content {
+    transform: skew(30deg);
+    margin-left: 1000px;
+}
+
+/* Responsive Design */
+/* Responsive Design */
+@media (max-width: 900px) {
+    .panel .description {
+        width: 80%;
+        font-size: 1rem;
+        top: 60%;
+        transform: translateY(-60%);
+        text-align: center;
+    }
+
+    .panel img {
+        width: 50%; /* Imagen más grande en pantallas medianas */
+    }
+
+    .splitview, .panel, .panel .content {
+        min-height: 60vw; /* Más alto en móviles para buena visualización */
+    }
+
+    .handle {
+        width: 4px;
+    }
+
+    .splitview {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* Menos sombra en móvil */
+    }
+}
+
+/* En pantallas pequeñas solo se muestra la imagen */
+@media (max-width: 600px) {
+    .panel .description {
+        display: none; /* Ocultar descripción */
+    }
+
+    .panel img {
+        width: 70%; /* Imagen centrada y ajustada para móviles pequeños */
+    }
+
+    .splitview, .panel, .panel .content {
+        min-height: 80vw; /* Más alto aún para teléfonos en vertical */
+    }
+
+    .handle {
+        display: none; /* Opcional: oculta el divisor si quieres */
+    }
+
+    .top {
+        width: 100vw;
+        border-radius: 0;
+    }
+
+    .skewed .top {
+        transform: none;
+        margin-left: 0;
+        width: 100vw;
+    }
+
+    .skewed .top .content {
+        transform: none;
+        margin-left: 0;
+    }
+}
+
+
+/* Tipo de letra xddd */
+p {
+    font-size: 90%;
+    color: white;
+    background-color: transparent;
+    font-family: 'Nothing You Could Do', cursive;
+    margin: 2.5rem 0 5.5rem;
+
+}
+
+
+
+/*Cuadro de imagenes estilo*/
+
+.deathnote-container {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+    background-color: #000000;
+}
+
+.deathnote-title {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    padding: 3rem 0;
+    color: #f2f2f2;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #000000;
+}
+
+.deathnote-title span {
+    display: block;
+    font-size: 2rem;
+    color: #888;
+}
+
+.deathnote-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Esto centra el contenido horizontalmente */
+    gap: 2rem; /* Esto crea espacio entre las imágenes */
+    margin-top: 4rem; /* Separación del título */
+}
+
+.deathnote-card {
+    flex: 1 0 24rem;
+    margin: 1rem;
+    overflow: hidden;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #000000;
+    transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.deathnote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px #e0c48b;
+}
+
+.deathnote-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-out;
+}
+
+.deathnote-card:hover .deathnote-image {
+    transform: scale(1.1);
+}
+
+/* Responsive grid with CSS Grid support */
+@supports (display: grid) {
+    .deathnote-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+        grid-gap: 2rem;
+    }
+
+    .deathnote-gallery,
+    .deathnote-card {
+        margin: 0;
+    }
+}
+
+/* Responsive: Ocultar título en pantallas pequeñas */
+@media screen and (max-width: 600px) {
+    .deathnote-title {
+        display: none;
+    }
+}
