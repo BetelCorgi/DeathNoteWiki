@@ -1,0 +1,126 @@
+/* Contenedor principal del footer */
+footer.footer-container {
+    background-color: #000000; /* Fondo un poco más intenso */
+    color: #ddd;
+    padding: 40px; /* Mayor espacio interior */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Diseño de grid flexible */
+    gap: 30px; /* Espacio entre las secciones */
+    border-top: 3px solid #e0c48b; /* Borde superior más marcado */
+}
+
+/* Estilos para cada sección del footer */
+.footer-section {
+    text-align: left; /* Alineación izquierda para un aspecto más moderno */
+}
+
+.footer-section h3 {
+    color: #bb903a; /* Rojo Death Note más prominente */
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-bottom: 2px solid #e0c48b; /* Línea debajo del título */
+    padding-bottom: 5px;
+}
+
+.footer-section p,
+.footer-section ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-section li {
+    margin-bottom: 8px;
+}
+
+/* Estilos para los enlaces */
+.footer-section a {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, padding-left 0.2s ease-in-out; /* Transición adicional */
+    display: block; /* Para que ocupe todo el ancho y sea más fácil hacer hover */
+    padding: 5px 0;
+}
+
+.footer-section a:hover {
+    color: #bb903a; /* Rojo aún más intenso al hacer hover */
+    padding-left: 20px; /* Efecto de desplazamiento al hacer hover */
+}
+
+/* Estilos para las imágenes */
+.footer-image {
+    max-width: 120px; /* Imágenes un poco más grandes */
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 8px; /* Bordes más redondeados */
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.footer-image:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7); /* Sombra más intensa al hacer hover */
+}
+
+/* Estilos para los iconos sociales */
+.social-icons a {
+    display: inline-flex; /* Centrar el icono */
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    font-size: 24px; /* Iconos más grandes */
+    color: #FFFFFF;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    width: 40px; /* Dar un tamaño fijo para el hover */
+    height: 40px;
+    border-radius: 100%; /* Hacerlos circulares */
+    background-color: #000000; /* Fondo oscuro para los iconos */
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    color: #FFFFFF;
+    background-color: #e0c48b; /* Fondo más claro al hacer hover */
+}
+
+/* Estilos para la sección de copyright */
+.copyright {
+    text-align: center;
+    width: 100%;
+    padding-top: 30px;
+    font-size: 0.95em;
+    color: #e0c48b;
+    border-top: 1px solid #000000; /* Separador del resto del footer */
+}
+
+/* Estilos específicos de Death Note */
+.death-note-font {
+    font-family: 'Consolas', 'Courier New', monospace; /* Fuente más moderna de monospace */
+    letter-spacing: 0.8px; /* Espaciado un poco mayor */
+}
+
+.ryuk-silhouette {
+    filter: drop-shadow(4px 4px 3px rgba(0, 0, 0, 0.8)); /* Sombra más oscura */
+}
+
+/* **RESPONSIVE DESIGN (Mejorado con Grid)** */
+/* El uso de `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));` ya hace que las secciones se reorganizen automáticamente en pantallas más pequeñas. */
+
+/* Ajustes adicionales para pantallas más pequeñas si es necesario */
+@media (max-width: 600px) {
+    footer.footer-container {
+        padding: 30px;
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        gap: 20px;
+    }
+
+    .footer-section {
+        text-align: center; /* Centrar el texto en pantallas pequeñas */
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center; /* Centrar los iconos sociales */
+    }
+}
