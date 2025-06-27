@@ -400,6 +400,7 @@
         .submit-btn:hover {
             background: #bb903a;
             transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(224, 196, 139, 0.7);
         }
 
         .success-message {
@@ -891,7 +892,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" onclick="mostrarResultado()">Descubrir mi personaje</button>
+            <button type="submit" class="submit-btn">Descubrir mi personaje</button>
 
             <div class="success-message" id="successMessage">
                 <div id="resultadoPersonaje" class="resultado-personaje">
@@ -941,12 +942,26 @@
     let progresoTest = 0;
     const totalPreguntas = 10;
 
-    // Función para abrir el test de personalidad (onclick)
+    // Función para abrir test de personalidad (onclick)
     function abrirTestPersonalidad() {
-        const testPopup = document.getElementById('testPopup');
-        testPopup.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        console.log('Test de personalidad abierto');
+        // Confirm antes de abrir el test
+        const confirmar = confirm('¿Estás listo para descubrir qué personaje de Death Note eres? El test tiene 10 preguntas.');
+        
+        if (confirmar) {
+            const testPopup = document.getElementById('testPopup');
+            testPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Prompt opcional para personalizar la experiencia
+            const nombre = prompt('¿Cuál es tu nombre? (opcional)');
+            if (nombre && nombre.trim() !== '') {
+                const tituloTest = document.querySelector('.popup-title');
+                tituloTest.textContent = `Test de Personalidad Death Note - ${nombre}`;
+                console.log('Test iniciado por:', nombre);
+            }
+        }
+        
+        console.log('Popup del test abierto');
     }
 
     // Función para cerrar el test de personalidad (onclick)
@@ -960,6 +975,23 @@
         successMessage.classList.remove('active');
         personalityTest.reset();
         progresoTest = 0;
+        
+        // Resetear título del test
+        const tituloTest = document.querySelector('.popup-title');
+        tituloTest.textContent = 'Test de Personalidad Death Note';
+        
+        // Resetear estilos de todas las opciones
+        const labels = document.querySelectorAll('.option label');
+        labels.forEach(label => {
+            label.style.backgroundColor = '';
+            label.style.color = '';
+        });
+        
+        // Resetear botón submit
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.style.backgroundColor = '#666';
+        submitBtn.style.transform = 'scale(1)';
+        
         console.log('Test de personalidad cerrado');
     }
 
@@ -1018,13 +1050,29 @@
     function procesarResultadoTest(event) {
         event.preventDefault();
         
+        // Verificar que todas las preguntas estén respondidas
+        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
+        let preguntasRespondidas = 0;
+        
+        preguntas.forEach(pregunta => {
+            const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
+            if (respuesta) {
+                preguntasRespondidas++;
+            }
+        });
+        
+        // Alert si no están todas las preguntas respondidas
+        if (preguntasRespondidas < 10) {
+            alert(`Por favor responde todas las preguntas. Te faltan ${10 - preguntasRespondidas} preguntas por responder.`);
+            return;
+        }
+        
         // Calcular resultado basado en respuestas
         const respuestas = {
             light: 0, l: 0, near: 0, mello: 0, 
             misa: 0
         };
         
-        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
         preguntas.forEach(pregunta => {
             const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
             if (respuesta) {
@@ -1041,6 +1089,9 @@
                 personajeResultado = personaje;
             }
         }
+        
+        // Alert de confirmación de resultados enviados
+        alert('¡Resultados del test procesados correctamente! Preparando tu resultado personalizado...');
         
         console.log('Resultado del test:', personajeResultado, 'con', maxPuntos, 'puntos');
         mostrarResultado(personajeResultado);
@@ -1123,6 +1174,10 @@
         personalityTest.reset();
         progresoTest = 0;
         
+        // Resetear título del test
+        const tituloTest = document.querySelector('.popup-title');
+        tituloTest.textContent = 'Test de Personalidad Death Note';
+        
         // Resetear estilos de todas las opciones
         const labels = document.querySelectorAll('.option label');
         labels.forEach(label => {
@@ -1148,43 +1203,63 @@
             misa: 'Misa Amane'
         };
         
-        const texto = `¡Acabo de hacer el test de personalidad de Death Note y soy ${personajes[personaje]}! 🖤📓`;
+        // Confirm antes de compartir
+        const confirmarCompartir = confirm(`¿Quieres compartir que eres ${personajes[personaje]} en el test de Death Note?`);
         
-        if (navigator.share) {
-            navigator.share({
-                title: 'Test de Personalidad Death Note',
-                text: texto,
-                url: window.location.href
-            });
-        } else {
-            // Fallback para navegadores que no soportan Web Share API
-            navigator.clipboard.writeText(texto + ' ' + window.location.href).then(() => {
-                alert('¡Resultado copiado al portapapeles!');
-            });
+        if (confirmarCompartir) {
+            // Prompt para personalizar el mensaje
+            const mensajePersonal = prompt('¿Quieres agregar un mensaje personal? (opcional)', '');
+            
+            let texto = `¡Acabo de hacer el test de personalidad de Death Note y soy ${personajes[personaje]}! 🖤📓`;
+            if (mensajePersonal && mensajePersonal.trim() !== '') {
+                texto += `\n\n"${mensajePersonal}"`;
+            }
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Test de Personalidad Death Note',
+                    text: texto,
+                    url: window.location.href
+                }).then(() => {
+                    alert('¡Resultado compartido exitosamente!');
+                }).catch(() => {
+                    // Fallback si falla el share nativo
+                    copiarAlPortapapeles(texto);
+                });
+            } else {
+                // Fallback para navegadores que no soportan Web Share API
+                copiarAlPortapapeles(texto);
+            }
         }
         
         console.log('Compartiendo resultado:', personajes[personaje]);
+    }
+
+    // Función auxiliar para copiar al portapapeles
+    function copiarAlPortapapeles(texto) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(texto + ' ' + window.location.href).then(() => {
+                alert('¡Resultado copiado al portapapeles! Puedes pegarlo en tus redes sociales.');
+            }).catch(() => {
+                // Fallback manual
+                const textArea = document.createElement('textarea');
+                textArea.value = texto + ' ' + window.location.href;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('¡Resultado copiado al portapapeles!');
+            });
+        } else {
+            alert('Tu navegador no soporta copiar automáticamente. Copia manualmente este texto:\n\n' + texto + '\n\n' + window.location.href);
+        }
     }
 </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Elementos del DOM
-        const openTestBtn = document.getElementById('openTestBtn');
-        const closePopupBtn = document.getElementById('closePopupBtn');
+        // Solo mantenemos los eventos que NO tienen onclick inline
         const testPopup = document.getElementById('testPopup');
-        const personalityTest = document.getElementById('personalityTest');
-        const successMessage = document.getElementById('successMessage');
-
-        // Abrir el popup (mantenemos también el addEventListener para compatibilidad)
-        openTestBtn.addEventListener('click', function() {
-            abrirTestPersonalidad();
-        });
-
-        // Cerrar el popup (mantenemos también el addEventListener para compatibilidad)
-        closePopupBtn.addEventListener('click', function() {
-            cerrarTestPersonalidad();
-        });
 
         // Cerrar popup haciendo clic fuera del contenido
         testPopup.addEventListener('click', function(e) {
@@ -1193,12 +1268,15 @@
             }
         });
 
-        // Manejar envío del formulario (mantenemos también el addEventListener para compatibilidad)
-        personalityTest.addEventListener('submit', function(e) {
-            procesarResultadoTest(e);
+        // Cerrar menú con la tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && testPopup.classList.contains('active')) {
+                cerrarTestPersonalidad();
+            }
         });
-    });
 
+        console.log('Event listeners inicializados correctamente');
+    });
 </script>
 <script src="Principal/assets/JS/headerScroll.js"></script>
 <script src="Principal/assets/JS/navbarHamburger.js"></script>
