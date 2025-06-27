@@ -272,7 +272,6 @@
             margin-top: 20px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(224, 196, 139, 0.4);
             border: none;
             cursor: pointer;
             margin-bottom: 20px;
@@ -424,6 +423,90 @@
             to { opacity: 1; }
         }
 
+        /* Estilos para el resultado del test */
+        .resultado-personaje {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .resultado-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .resultado-imagen {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e0c48b;
+            box-shadow: 0 0 20px rgba(224, 196, 139, 0.5);
+        }
+
+        .resultado-info {
+            flex: 1;
+        }
+
+        .resultado-titulo {
+            color: #e0c48b;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .resultado-caracteristicas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .caracteristica-tag {
+            background: linear-gradient(135deg, #8B0000, #A52A2A);
+            color: #e0c48b;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid #e0c48b;
+        }
+
+        .resultado-descripcion {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: justify;
+            font-size: 1rem;
+        }
+
+        .resultado-acciones {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-reiniciar, .btn-compartir {
+            background: linear-gradient(135deg, #8B0000, #A52A2A);
+            color: #e0c48b;
+            border: 1px solid #e0c48b;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-reiniciar:hover, .btn-compartir:hover {
+            background: linear-gradient(135deg, #A52A2A, #8B0000);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(224, 196, 139, 0.4);
+        }
+
         /* Media queries */
         @media (max-width: 768px) {
             .falling-book-container {
@@ -445,6 +528,32 @@
 
             .popup-title {
                 font-size: 1.6rem;
+            }
+
+            /* Estilos responsivos para resultados */
+            .resultado-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .resultado-imagen {
+                width: 100px;
+                height: 100px;
+            }
+
+            .resultado-titulo {
+                font-size: 1.5rem;
+            }
+
+            .resultado-acciones {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-reiniciar, .btn-compartir {
+                width: 200px;
+                text-align: center;
             }
         }
     </style>
@@ -651,23 +760,133 @@
             </div>
 
             <div class="form-group">
-                <div class="question">5. ¿Qué opinas sobre sacrificar a otros por un bien mayor?</div>
+                <div class="question">5. ¿Qué te motiva más en la vida?</div>
                 <div class="options">
                     <div class="option">
                         <input type="radio" id="q5_a" name="q5" value="light" required onchange="actualizarProgreso()">
-                        <label for="q5_a" onclick="seleccionarOpcion('q5_a')">Es necesario a veces, el fin justifica los medios</label>
+                        <label for="q5_a" onclick="seleccionarOpcion('q5_a')">Crear un mundo perfecto bajo mi visión</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="q5_b" name="q5" value="l" onchange="actualizarProgreso()">
-                        <label for="q5_b" onclick="seleccionarOpcion('q5_b')">Trataría de encontrar una solución donde nadie salga perjudicado</label>
+                        <label for="q5_b" onclick="seleccionarOpcion('q5_b')">Resolver misterios y buscar la verdad</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="q5_c" name="q5" value="misa" onchange="actualizarProgreso()">
-                        <label for="q5_c" onclick="seleccionarOpcion('q5_c')">Sacrificaría todo por la persona que amo</label>
+                        <label for="q5_c" onclick="seleccionarOpcion('q5_c')">El amor y la devoción hacia alguien especial</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q5_d" name="q5" value="soichiro" onchange="actualizarProgreso()">
-                        <label for="q5_d" onclick="seleccionarOpcion('q5_d')">No es ético sacrificar vidas inocentes, sin importar el motivo</label>
+                        <input type="radio" id="q5_d" name="q5" value="mello" onchange="actualizarProgreso()">
+                        <label for="q5_d" onclick="seleccionarOpcion('q5_d')">Demostrar mi superioridad y ganar</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="question">6. ¿Cuál es tu método preferido para resolver problemas?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6_a" name="q6" value="l" required onchange="actualizarProgreso()">
+                        <label for="q6_a" onclick="seleccionarOpcion('q6_a')">Análisis detallado y deducción lógica</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6_b" name="q6" value="light" onchange="actualizarProgreso()">
+                        <label for="q6_b" onclick="seleccionarOpcion('q6_b')">Planificación estratégica a largo plazo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6_c" name="q6" value="mello" onchange="actualizarProgreso()">
+                        <label for="q6_c" onclick="seleccionarOpcion('q6_c')">Acción directa e impulsiva</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6_d" name="q6" value="near" onchange="actualizarProgreso()">
+                        <label for="q6_d" onclick="seleccionarOpcion('q6_d')">Observación paciente y análisis sistemático</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="question">7. ¿Qué te motiva más en la vida?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7_a" name="q7" value="light" required onchange="actualizarProgreso()">
+                        <label for="q7_a" onclick="seleccionarOpcion('q7_a')">Crear un mundo perfecto bajo mi visión</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7_b" name="q7" value="l" onchange="actualizarProgreso()">
+                        <label for="q7_b" onclick="seleccionarOpcion('q7_b')">Resolver misterios y buscar la verdad</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7_c" name="q7" value="misa" onchange="actualizarProgreso()">
+                        <label for="q7_c" onclick="seleccionarOpcion('q7_c')">El amor y la devoción hacia alguien especial</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7_d" name="q7" value="mello" onchange="actualizarProgreso()">
+                        <label for="q7_d" onclick="seleccionarOpcion('q7_d')">Demostrar mi superioridad y ganar</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="question">8. ¿Cómo manejas la presión y el estrés?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8_a" name="q8" value="near" required onchange="actualizarProgreso()">
+                        <label for="q8_a" onclick="seleccionarOpcion('q8_a')">Me mantengo calmado y juego con mis juguetes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8_b" name="q8" value="l" onchange="actualizarProgreso()">
+                        <label for="q8_b" onclick="seleccionarOpcion('q8_b')">Como dulces y me concentro en el problema</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8_c" name="q8" value="mello" onchange="actualizarProgreso()">
+                        <label for="q8_c" onclick="seleccionarOpcion('q8_c')">Como chocolate y actúo agresivamente</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8_d" name="q8" value="light" onchange="actualizarProgreso()">
+                        <label for="q8_d" onclick="seleccionarOpcion('q8_d')">Mantengo mi compostura y sigo mi plan</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="question">9. ¿Cuál es tu mayor debilidad?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9_a" name="q9" value="light" required onchange="actualizarProgreso()">
+                        <label for="q9_a" onclick="seleccionarOpcion('q9_a')">Mi orgullo y arrogancia</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9_b" name="q9" value="l" onchange="actualizarProgreso()">
+                        <label for="q9_b" onclick="seleccionarOpcion('q9_b')">Mi obsesión por resolver casos</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9_c" name="q9" value="misa" onchange="actualizarProgreso()">
+                        <label for="q9_c" onclick="seleccionarOpcion('q9_c')">Mi dependencia emocional hacia otros</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9_d" name="q9" value="mello" onchange="actualizarProgreso()">
+                        <label for="q9_d" onclick="seleccionarOpcion('q9_d')">Mi temperamento impulsivo</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="question">10. ¿Qué harías si tuvieras que elegir entre salvar a un ser querido o salvar a muchas personas inocentes?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q10_a" name="q10" value="misa" required onchange="actualizarProgreso()">
+                        <label for="q10_a" onclick="seleccionarOpcion('q10_a')">Salvaría a mi ser querido sin dudarlo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10_b" name="q10" value="l" onchange="actualizarProgreso()">
+                        <label for="q10_b" onclick="seleccionarOpcion('q10_b')">Buscaría una tercera opción para salvar a todos</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10_c" name="q10" value="light" onchange="actualizarProgreso()">
+                        <label for="q10_c" onclick="seleccionarOpcion('q10_c')">Salvaría a las muchas personas, es lo lógico</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10_d" name="q10" value="near" onchange="actualizarProgreso()">
+                        <label for="q10_d" onclick="seleccionarOpcion('q10_d')">Analizaría fríamente cuál decisión tiene mejores consecuencias</label>
                     </div>
                 </div>
             </div>
@@ -675,9 +894,9 @@
             <button type="submit" class="submit-btn" onclick="mostrarResultado()">Descubrir mi personaje</button>
 
             <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle" style="font-size: 2rem; color: #e0c48b; margin-bottom: 15px;"></i>
-                <h3 style="margin-bottom: 10px;">¡Tus resultados han sido enviados de forma satisfactoria!</h3>
-                <p>Pronto te enviaremos un correo con tu personaje de Death Note.</p>
+                <div id="resultadoPersonaje" class="resultado-personaje">
+                    <!-- Aquí se mostrará la imagen y descripción del personaje resultado -->
+                </div>
             </div>
         </form>
     </div>
@@ -720,7 +939,7 @@
 <script>
     // Variables globales para el progreso del test
     let progresoTest = 0;
-    const totalPreguntas = 5;
+    const totalPreguntas = 10;
 
     // Función para abrir el test de personalidad (onclick)
     function abrirTestPersonalidad() {
@@ -746,7 +965,7 @@
 
     // Función para actualizar progreso (onchange)
     function actualizarProgreso() {
-        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
         let preguntasRespondidas = 0;
         
         preguntas.forEach(pregunta => {
@@ -802,10 +1021,10 @@
         // Calcular resultado basado en respuestas
         const respuestas = {
             light: 0, l: 0, near: 0, mello: 0, 
-            misa: 0, ryuk: 0, soichiro: 0
+            misa: 0
         };
         
-        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
         preguntas.forEach(pregunta => {
             const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
             if (respuesta) {
@@ -824,22 +1043,131 @@
         }
         
         console.log('Resultado del test:', personajeResultado, 'con', maxPuntos, 'puntos');
-        mostrarResultado();
+        mostrarResultado(personajeResultado);
     }
 
     // Función para mostrar resultado (onclick en botón submit)
-    function mostrarResultado() {
+    function mostrarResultado(personaje) {
         const successMessage = document.getElementById('successMessage');
+        const resultadoPersonaje = document.getElementById('resultadoPersonaje');
+        
+        // Datos de cada personaje
+        const personajes = {
+            light: {
+                nombre: 'Light Yagami (Kira)',
+                imagen: 'Principal/assets/images/Personajes/Light-Yagami/LightYagami.jpg',
+                descripcion: 'Eres un genio estratega con una visión clara de cómo debería ser el mundo. Tu inteligencia superior y tu determinación te llevan a tomar decisiones difíciles para crear lo que consideras un mundo perfecto. Tienes una personalidad carismática pero también un lado oscuro impulsado por tu sentido de justicia.',
+                caracteristicas: ['Inteligente', 'Estratega', 'Carismático', 'Determinado', 'Visionario']
+            },
+            l: {
+                nombre: 'L Lawliet',
+                imagen: 'Principal/assets/images/Personajes/L-Lawliet/L-Lawliet.jpg',
+                descripcion: 'Eres un detective brillante con una mente analítica excepcional. Tu capacidad para resolver los casos más complejos es legendaria. Aunque puedes parecer excéntrico, tu dedicación a la verdad y la justicia es inquebrantable. Prefieres trabajar en las sombras y confías en tu lógica por encima de todo.',
+                caracteristicas: ['Analítico', 'Brillante', 'Excéntrico', 'Observador', 'Justo']
+            },
+            near: {
+                nombre: 'Near (Nate River)',
+                imagen: 'Principal/assets/images/Personajes/Near/Near.jpg',
+                descripcion: 'Eres una persona calmada y metódica que prefiere observar antes de actuar. Tu paciencia y atención al detalle te permiten resolver problemas complejos de manera sistemática. Aunque puedes parecer frío, tu enfoque racional te ayuda a tomar las mejores decisiones.',
+                caracteristicas: ['Paciente', 'Metódico', 'Observador', 'Racional', 'Sistemático']
+            },
+            mello: {
+                nombre: 'Mello (Mihael Keehl)',
+                imagen: 'Principal/assets/images/Personajes/Mello/Mello.jpg',
+                descripcion: 'Eres una persona apasionada e impulsiva que no teme tomar riesgos para alcanzar tus objetivos. Tu determinación y tu naturaleza competitiva te impulsan a actuar rápidamente. Aunque puedes ser temperamental, tu lealtad hacia quienes te importan es inquebrantable.',
+                caracteristicas: ['Apasionado', 'Impulsivo', 'Competitivo', 'Leal', 'Determinado']
+            },
+            misa: {
+                nombre: 'Misa Amane',
+                imagen: 'Principal/assets/images/Personajes/Misa-Amane/Misa-Amane.jpg',
+                descripcion: 'Eres una persona emotiva y devota que valora profundamente las relaciones personales. Tu capacidad para amar incondicionalmente y tu lealtad son tus mayores fortalezas. Aunque puedes ser impulsiva en tus decisiones, siempre actúas desde el corazón.',
+                caracteristicas: ['Emotiva', 'Devota', 'Leal', 'Apasionada', 'Intuitiva']
+            }
+        };
+        
+        const datosPersonaje = personajes[personaje];
+        
         successMessage.classList.add('active');
+        resultadoPersonaje.innerHTML = `
+            <div class="resultado-header">
+                <img src="${datosPersonaje.imagen}" alt="${datosPersonaje.nombre}" class="resultado-imagen">
+                <div class="resultado-info">
+                    <h3 class="resultado-titulo">¡Eres ${datosPersonaje.nombre}!</h3>
+                    <div class="resultado-caracteristicas">
+                        ${datosPersonaje.caracteristicas.map(car => `<span class="caracteristica-tag">${car}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+            <p class="resultado-descripcion">${datosPersonaje.descripcion}</p>
+            <div class="resultado-acciones">
+                <button onclick="reiniciarTest()" class="btn-reiniciar">Hacer test de nuevo</button>
+                <button onclick="compartirResultado('${personaje}')" class="btn-compartir">Compartir resultado</button>
+            </div>
+        `;
         
         // Desplazarse al mensaje de éxito
         setTimeout(() => {
             successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 100);
         
-        console.log('Resultado mostrado');
+        console.log('Resultado mostrado para:', datosPersonaje.nombre);
     }
 
+    // Función para reiniciar el test
+    function reiniciarTest() {
+        const testPopup = document.getElementById('testPopup');
+        const successMessage = document.getElementById('successMessage');
+        const personalityTest = document.getElementById('personalityTest');
+        
+        successMessage.classList.remove('active');
+        personalityTest.reset();
+        progresoTest = 0;
+        
+        // Resetear estilos de todas las opciones
+        const labels = document.querySelectorAll('.option label');
+        labels.forEach(label => {
+            label.style.backgroundColor = '';
+            label.style.color = '';
+        });
+        
+        // Resetear botón submit
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.style.backgroundColor = '#666';
+        submitBtn.style.transform = 'scale(1)';
+        
+        console.log('Test reiniciado');
+    }
+
+    // Función para compartir resultado
+    function compartirResultado(personaje) {
+        const personajes = {
+            light: 'Light Yagami (Kira)',
+            l: 'L Lawliet', 
+            near: 'Near',
+            mello: 'Mello',
+            misa: 'Misa Amane'
+        };
+        
+        const texto = `¡Acabo de hacer el test de personalidad de Death Note y soy ${personajes[personaje]}! 🖤📓`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'Test de Personalidad Death Note',
+                text: texto,
+                url: window.location.href
+            });
+        } else {
+            // Fallback para navegadores que no soportan Web Share API
+            navigator.clipboard.writeText(texto + ' ' + window.location.href).then(() => {
+                alert('¡Resultado copiado al portapapeles!');
+            });
+        }
+        
+        console.log('Compartiendo resultado:', personajes[personaje]);
+    }
+</script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         // Elementos del DOM
         const openTestBtn = document.getElementById('openTestBtn');
@@ -870,6 +1198,7 @@
             procesarResultadoTest(e);
         });
     });
+
 </script>
 <script src="Principal/assets/JS/headerScroll.js"></script>
 <script src="Principal/assets/JS/navbarHamburger.js"></script>
