@@ -549,7 +549,7 @@
         </div>
 
         <!-- NUEVO: Botón para el Test de Personalidad -->
-        <button class="test-btn" id="openTestBtn">
+        <button class="test-btn" id="openTestBtn" onclick="abrirTestPersonalidad()">
             <i class="fas fa-user-edit"></i> Test de Personalidad
         </button>
     </section>
@@ -558,28 +558,28 @@
 <!-- NUEVO: Popup del Test de Personalidad -->
 <div class="popup-overlay" id="testPopup">
     <div class="popup-content">
-        <button class="popup-close" id="closePopupBtn"><i class="fas fa-times"></i></button>
+        <button class="popup-close" id="closePopupBtn" onclick="cerrarTestPersonalidad()"><i class="fas fa-times"></i></button>
         <h2 class="popup-title">Test de Personalidad: ¿Qué personaje de Death Note eres?</h2>
 
-        <form class="test-form" id="personalityTest">
+        <form class="test-form" id="personalityTest" onsubmit="procesarResultadoTest(event)">
             <div class="form-group">
                 <div class="question">1. Si encontraras una Death Note, ¿qué harías?</div>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="q1_a" name="q1" value="light" required>
-                        <label for="q1_a">La usaría para crear un mundo mejor eliminando criminales</label>
+                        <input type="radio" id="q1_a" name="q1" value="light" required onchange="actualizarProgreso()">
+                        <label for="q1_a" onclick="seleccionarOpcion('q1_a')">La usaría para crear un mundo mejor eliminando criminales</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q1_b" name="q1" value="l">
-                        <label for="q1_b">La guardaría como evidencia y trataría de descubrir su origen</label>
+                        <input type="radio" id="q1_b" name="q1" value="l" onchange="actualizarProgreso()">
+                        <label for="q1_b" onclick="seleccionarOpcion('q1_b')">La guardaría como evidencia y trataría de descubrir su origen</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q1_c" name="q1" value="ryuk">
-                        <label for="q1_c">Experimentaría con ella para divertirme y ver qué sucede</label>
+                        <input type="radio" id="q1_c" name="q1" value="ryuk" onchange="actualizarProgreso()">
+                        <label for="q1_c" onclick="seleccionarOpcion('q1_c')">Experimentaría con ella para divertirme y ver qué sucede</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q1_d" name="q1" value="misa">
-                        <label for="q1_d">La usaría para ayudar a alguien que admiro</label>
+                        <input type="radio" id="q1_d" name="q1" value="misa" onchange="actualizarProgreso()">
+                        <label for="q1_d" onclick="seleccionarOpcion('q1_d')">La usaría para ayudar a alguien que admiro</label>
                     </div>
                 </div>
             </div>
@@ -588,20 +588,20 @@
                 <div class="question">2. ¿Cuál es tu mayor fortaleza?</div>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="q2_a" name="q2" value="light" required>
-                        <label for="q2_a">Mi inteligencia y capacidad de planificación</label>
+                        <input type="radio" id="q2_a" name="q2" value="light" required onchange="actualizarProgreso()">
+                        <label for="q2_a" onclick="seleccionarOpcion('q2_a')">Mi inteligencia y capacidad de planificación</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q2_b" name="q2" value="l">
-                        <label for="q2_b">Mi capacidad deductiva y pensamiento analítico</label>
+                        <input type="radio" id="q2_b" name="q2" value="l" onchange="actualizarProgreso()">
+                        <label for="q2_b" onclick="seleccionarOpcion('q2_b')">Mi capacidad deductiva y pensamiento analítico</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q2_c" name="q2" value="near">
-                        <label for="q2_c">Mi paciencia y atención al detalle</label>
+                        <input type="radio" id="q2_c" name="q2" value="near" onchange="actualizarProgreso()">
+                        <label for="q2_c" onclick="seleccionarOpcion('q2_c')">Mi paciencia y atención al detalle</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q2_d" name="q2" value="mello">
-                        <label for="q2_d">Mi determinación y audacia</label>
+                        <input type="radio" id="q2_d" name="q2" value="mello" onchange="actualizarProgreso()">
+                        <label for="q2_d" onclick="seleccionarOpcion('q2_d')">Mi determinación y audacia</label>
                     </div>
                 </div>
             </div>
@@ -610,20 +610,20 @@
                 <div class="question">3. ¿Qué piensas sobre la justicia?</div>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="q3_a" name="q3" value="light" required>
-                        <label for="q3_a">A veces hay que tomar medidas drásticas para que exista la verdadera justicia</label>
+                        <input type="radio" id="q3_a" name="q3" value="light" required onchange="actualizarProgreso()">
+                        <label for="q3_a" onclick="seleccionarOpcion('q3_a')">A veces hay que tomar medidas drásticas para que exista la verdadera justicia</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q3_b" name="q3" value="l">
-                        <label for="q3_b">La justicia debe seguir un proceso y respetar la ley</label>
+                        <input type="radio" id="q3_b" name="q3" value="l" onchange="actualizarProgreso()">
+                        <label for="q3_b" onclick="seleccionarOpcion('q3_b')">La justicia debe seguir un proceso y respetar la ley</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q3_c" name="q3" value="ryuk">
-                        <label for="q3_c">La justicia es un concepto relativo, depende de quien la defina</label>
+                        <input type="radio" id="q3_c" name="q3" value="ryuk" onchange="actualizarProgreso()">
+                        <label for="q3_c" onclick="seleccionarOpcion('q3_c')">La justicia es un concepto relativo, depende de quien la defina</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q3_d" name="q3" value="soichiro">
-                        <label for="q3_d">La justicia debe ser íntegra y honesta siempre</label>
+                        <input type="radio" id="q3_d" name="q3" value="soichiro" onchange="actualizarProgreso()">
+                        <label for="q3_d" onclick="seleccionarOpcion('q3_d')">La justicia debe ser íntegra y honesta siempre</label>
                     </div>
                 </div>
             </div>
@@ -632,20 +632,20 @@
                 <div class="question">4. ¿Cómo reaccionas ante un desafío?</div>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="q4_a" name="q4" value="light" required>
-                        <label for="q4_a">Planeo meticulosamente para asegurar mi victoria</label>
+                        <input type="radio" id="q4_a" name="q4" value="light" required onchange="actualizarProgreso()">
+                        <label for="q4_a" onclick="seleccionarOpcion('q4_a')">Planeo meticulosamente para asegurar mi victoria</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q4_b" name="q4" value="l">
-                        <label for="q4_b">Analizo todas las posibilidades hasta encontrar la solución</label>
+                        <input type="radio" id="q4_b" name="q4" value="l" onchange="actualizarProgreso()">
+                        <label for="q4_b" onclick="seleccionarOpcion('q4_b')">Analizo todas las posibilidades hasta encontrar la solución</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q4_c" name="q4" value="mello">
-                        <label for="q4_c">Actúo rápidamente y tomo riesgos para ganar</label>
+                        <input type="radio" id="q4_c" name="q4" value="mello" onchange="actualizarProgreso()">
+                        <label for="q4_c" onclick="seleccionarOpcion('q4_c')">Actúo rápidamente y tomo riesgos para ganar</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q4_d" name="q4" value="near">
-                        <label for="q4_d">Me mantengo tranquilo y resuelvo el problema paso a paso</label>
+                        <input type="radio" id="q4_d" name="q4" value="near" onchange="actualizarProgreso()">
+                        <label for="q4_d" onclick="seleccionarOpcion('q4_d')">Me mantengo tranquilo y resuelvo el problema paso a paso</label>
                     </div>
                 </div>
             </div>
@@ -654,25 +654,25 @@
                 <div class="question">5. ¿Qué opinas sobre sacrificar a otros por un bien mayor?</div>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="q5_a" name="q5" value="light" required>
-                        <label for="q5_a">Es necesario a veces, el fin justifica los medios</label>
+                        <input type="radio" id="q5_a" name="q5" value="light" required onchange="actualizarProgreso()">
+                        <label for="q5_a" onclick="seleccionarOpcion('q5_a')">Es necesario a veces, el fin justifica los medios</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q5_b" name="q5" value="l">
-                        <label for="q5_b">Trataría de encontrar una solución donde nadie salga perjudicado</label>
+                        <input type="radio" id="q5_b" name="q5" value="l" onchange="actualizarProgreso()">
+                        <label for="q5_b" onclick="seleccionarOpcion('q5_b')">Trataría de encontrar una solución donde nadie salga perjudicado</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q5_c" name="q5" value="misa">
-                        <label for="q5_c">Sacrificaría todo por la persona que amo</label>
+                        <input type="radio" id="q5_c" name="q5" value="misa" onchange="actualizarProgreso()">
+                        <label for="q5_c" onclick="seleccionarOpcion('q5_c')">Sacrificaría todo por la persona que amo</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q5_d" name="q5" value="soichiro">
-                        <label for="q5_d">No es ético sacrificar vidas inocentes, sin importar el motivo</label>
+                        <input type="radio" id="q5_d" name="q5" value="soichiro" onchange="actualizarProgreso()">
+                        <label for="q5_d" onclick="seleccionarOpcion('q5_d')">No es ético sacrificar vidas inocentes, sin importar el motivo</label>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Descubrir mi personaje</button>
+            <button type="submit" class="submit-btn" onclick="mostrarResultado()">Descubrir mi personaje</button>
 
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle" style="font-size: 2rem; color: #e0c48b; margin-bottom: 15px;"></i>
@@ -718,6 +718,128 @@
 
 <!-- NUEVO: JavaScript para la funcionalidad del popup y formulario -->
 <script>
+    // Variables globales para el progreso del test
+    let progresoTest = 0;
+    const totalPreguntas = 5;
+
+    // Función para abrir el test de personalidad (onclick)
+    function abrirTestPersonalidad() {
+        const testPopup = document.getElementById('testPopup');
+        testPopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log('Test de personalidad abierto');
+    }
+
+    // Función para cerrar el test de personalidad (onclick)
+    function cerrarTestPersonalidad() {
+        const testPopup = document.getElementById('testPopup');
+        const successMessage = document.getElementById('successMessage');
+        const personalityTest = document.getElementById('personalityTest');
+        
+        testPopup.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        successMessage.classList.remove('active');
+        personalityTest.reset();
+        progresoTest = 0;
+        console.log('Test de personalidad cerrado');
+    }
+
+    // Función para actualizar progreso (onchange)
+    function actualizarProgreso() {
+        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        let preguntasRespondidas = 0;
+        
+        preguntas.forEach(pregunta => {
+            const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
+            if (respuesta) {
+                preguntasRespondidas++;
+            }
+        });
+        
+        progresoTest = (preguntasRespondidas / totalPreguntas) * 100;
+        console.log(`Progreso del test: ${progresoTest.toFixed(0)}%`);
+        
+        // Cambiar color del botón según el progreso
+        const submitBtn = document.querySelector('.submit-btn');
+        if (progresoTest === 100) {
+            submitBtn.style.backgroundColor = '#8B0000';
+            submitBtn.style.transform = 'scale(1.05)';
+        } else {
+            submitBtn.style.backgroundColor = '#666';
+            submitBtn.style.transform = 'scale(1)';
+        }
+    }
+
+    // Función para seleccionar opción (onclick en labels)
+    function seleccionarOpcion(opcionId) {
+        const input = document.getElementById(opcionId);
+        input.checked = true;
+        
+        // Efecto visual al seleccionar
+        const label = document.querySelector(`label[for="${opcionId}"]`);
+        label.style.backgroundColor = '#8B0000';
+        label.style.color = '#e0c48b';
+        
+        // Remover estilo de otras opciones del mismo grupo
+        const pregunta = opcionId.substring(0, 2); // q1, q2, etc.
+        const otrasOpciones = document.querySelectorAll(`input[name="${pregunta}"]`);
+        otrasOpciones.forEach(opcion => {
+            if (opcion.id !== opcionId) {
+                const otraLabel = document.querySelector(`label[for="${opcion.id}"]`);
+                otraLabel.style.backgroundColor = '';
+                otraLabel.style.color = '';
+            }
+        });
+        
+        actualizarProgreso();
+        console.log(`Opción seleccionada: ${opcionId}`);
+    }
+
+    // Función para procesar resultado del test (onsubmit)
+    function procesarResultadoTest(event) {
+        event.preventDefault();
+        
+        // Calcular resultado basado en respuestas
+        const respuestas = {
+            light: 0, l: 0, near: 0, mello: 0, 
+            misa: 0, ryuk: 0, soichiro: 0
+        };
+        
+        const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        preguntas.forEach(pregunta => {
+            const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
+            if (respuesta) {
+                respuestas[respuesta.value]++;
+            }
+        });
+        
+        // Encontrar el personaje con más puntos
+        let personajeResultado = 'light';
+        let maxPuntos = 0;
+        for (const [personaje, puntos] of Object.entries(respuestas)) {
+            if (puntos > maxPuntos) {
+                maxPuntos = puntos;
+                personajeResultado = personaje;
+            }
+        }
+        
+        console.log('Resultado del test:', personajeResultado, 'con', maxPuntos, 'puntos');
+        mostrarResultado();
+    }
+
+    // Función para mostrar resultado (onclick en botón submit)
+    function mostrarResultado() {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('active');
+        
+        // Desplazarse al mensaje de éxito
+        setTimeout(() => {
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+        
+        console.log('Resultado mostrado');
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         // Elementos del DOM
         const openTestBtn = document.getElementById('openTestBtn');
@@ -726,49 +848,26 @@
         const personalityTest = document.getElementById('personalityTest');
         const successMessage = document.getElementById('successMessage');
 
-        // Abrir el popup
+        // Abrir el popup (mantenemos también el addEventListener para compatibilidad)
         openTestBtn.addEventListener('click', function() {
-            testPopup.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Evita scroll en el body
+            abrirTestPersonalidad();
         });
 
-        // Cerrar el popup
+        // Cerrar el popup (mantenemos también el addEventListener para compatibilidad)
         closePopupBtn.addEventListener('click', function() {
-            testPopup.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restaura scroll en el body
-            successMessage.classList.remove('active'); // Oculta mensaje de éxito al cerrar
-            personalityTest.reset(); // Reinicia el formulario
+            cerrarTestPersonalidad();
         });
 
         // Cerrar popup haciendo clic fuera del contenido
         testPopup.addEventListener('click', function(e) {
             if (e.target === testPopup) {
-                testPopup.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                successMessage.classList.remove('active');
-                personalityTest.reset();
+                cerrarTestPersonalidad();
             }
         });
 
-        // Manejar envío del formulario
+        // Manejar envío del formulario (mantenemos también el addEventListener para compatibilidad)
         personalityTest.addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita el envío tradicional del formulario
-
-            // Mostrar mensaje de éxito
-            successMessage.classList.add('active');
-
-            // Desplazarse al mensaje de éxito
-            setTimeout(() => {
-                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-
-            // Si quisiéramos cerrar automáticamente después de un tiempo:
-            // setTimeout(() => {
-            //     testPopup.classList.remove('active');
-            //     document.body.style.overflow = 'auto';
-            //     successMessage.classList.remove('active');
-            //     personalityTest.reset();
-            // }, 3000);
+            procesarResultadoTest(e);
         });
     });
 </script>

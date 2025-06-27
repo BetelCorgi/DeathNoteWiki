@@ -12,7 +12,12 @@
 
 /* Para #htmlData y #bodyData con overflow: auto */
 #htmlData, #bodyData {
-    overflow: auto !important; /* Permitimos el scroll en estas configuraciones */
+    overflow: auto; /* Permitimos el scroll en estas configuraciones */
+}
+
+/* Cuando el menú hamburguesa está activo, controlar el overflow */
+#bodyData.menu-open {
+    overflow: hidden !important;
 }
 
 /* Estilos de bodyData */
@@ -243,10 +248,7 @@ main {
     }
 }
 
-
 /*Este es para el tipo de letra death note */
-
-
 
 p {
     font-size: 140%;
@@ -256,8 +258,6 @@ p {
     margin: 2.5rem 0 5.5rem;
 
 }
-
-
 
 #containerInfo {
     height: 100%;
@@ -982,3 +982,39 @@ button:hover {
         font-size: 1em;
     }
 }
+
+/* Reglas específicas para el menú hamburguesa en la página de datos */
+@media (max-width: 768px) {
+    .navbar .nav-left.active {
+        z-index: 9999 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background-color: rgba(0, 0, 0, 0.95) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    .navbar .nav-left.active .nav-list {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 2rem !important;
+    }
+    
+    .navbar .nav-left.active .nav-list li a {
+        color: #fff !important;
+        font-size: 1.5rem !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+    }
+    
+    .navbar .nav-left.active .nav-list li a:hover {
+        color: #bb903a !important;
+    }
+}
+

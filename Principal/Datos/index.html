@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" style="background-color: #000000; margin: 0; padding: 0;" id="htmlData">
+<html lang="es" style="background-color: #000000; margin: 0; padding: 0; overflow: hidden;" id="htmlData">
 <head>
     <meta charset="UTF-8">
     <title>Death Note Wiki</title>
@@ -14,38 +14,48 @@
     <!-- Fuente estilo Death Note o similar -->
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos para permitir scroll vertical */
+        html {
+            overflow-y: auto !important;
+        }
+    </style>
 </head>
 <body id="bodyData">
-<header class="navbar">
-    <div class="nav-container">
-        <nav class="nav-left">
-            <ul class="nav-list">
-                <li><a href="../Personajes/index.html" >Personajes</a></li>
-            </ul>
-        </nav>
-
-        <div class="logo-container">
-            <a href="/index.html"><img src="../assets/images/LogoDeathNote.png" alt="Death Note Logo" class="logo"></a>
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-left">
+                <ul class="nav-list">
+                    <li><a href="../Personajes/index.html">Personajes</a></li>
+                </ul>
+            </nav>
+    
+            <div class="logo-container">
+                <a href="../../index.html">
+                    <img src="../assets/images/LogoDeathNote.png" alt="Death Note Logo" class="logo">
+                </a>
+            </div>
+    
+            <nav class="nav-right">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="selectedbtn">Datos</a></li>
+                    <li><a href="../Musica-multimedia/index.html">Media</a></li>
+                </ul>
+            </nav>
         </div>
-
-        <nav class="nav-right">
-            <ul class="nav-list">
-                <li><a href="../Datos/index.html" class="selectedbtn" >Datos</a></li>
-                <li><a href="../Musica-multimedia/index.html" >Media</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="burger">
-       <span class="barra-hamburguesa"> </span>
-       <span class="barra-hamburguesa"> </span>
-       <span class="barra-hamburguesa"> </span>
-    </div>
-
-    <a href="https://www.crunchyroll.com/es/series/G6QWD3EE6/death-note" target="_blank" class="ver-btn">
-        <span class="play-icon">▶</span> Ver
-    </a>
-</header>
+    
+        <div class="burger">
+           <span class="barra-hamburguesa"> </span>
+           <span class="barra-hamburguesa"> </span>
+           <span class="barra-hamburguesa"> </span>
+        </div>
+        
+    
+        <a href="https://www.crunchyroll.com/es/series/G6QWD3EE6/death-note" target="_blank" class="ver-btn">
+            <span class="play-icon">▶</span> Ver
+        </a>
+    </header>
 
 <main>
     <ul class='slider'>
@@ -324,7 +334,7 @@
             </tbody>
         </table>
     </div>
-    <button id="saveButton" class="animeEstilo">💾 Guardar Cambios</button>
+    <button id="saveButton" class="animeEstilo"> Guardar Cambios</button>
 </div>
 
 <p></p>

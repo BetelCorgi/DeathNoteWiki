@@ -1,5 +1,3 @@
-
-
 // Función para inicializar el menú hamburguesa
 function initHamburgerMenu() {
     console.log('Inicializando menú hamburguesa...');
@@ -14,6 +12,51 @@ function initHamburgerMenu() {
         console.error('Error: No se encontró el botón de hamburguesa');
         return;
     }
+
+    // Función para combinar menús en móvil
+    function setupMobileMenu() {
+        console.log('setupMobileMenu called, window width:', window.innerWidth);
+        if (window.innerWidth <= 768) {
+            const navLeftList = navLeft.querySelector('.nav-list');
+            const navRightList = navRight.querySelector('.nav-list');
+            
+            console.log('Mobile mode - navLeftList:', navLeftList, 'navRightList:', navRightList);
+            
+            // Limpiar elementos duplicados primero
+            const existingClones = navLeftList.querySelectorAll('.mobile-clone');
+            console.log('Removing existing clones:', existingClones.length);
+            existingClones.forEach(clone => clone.remove());
+            
+            // Clonar elementos de nav-right y agregarlos a nav-left
+            const rightItems = navRightList.querySelectorAll('li');
+            console.log('Right items to clone:', rightItems.length);
+            rightItems.forEach(item => {
+                const clonedItem = item.cloneNode(true);
+                clonedItem.classList.add('mobile-clone'); // Marcar como clonado
+                navLeftList.appendChild(clonedItem);
+                console.log('Cloned item:', item.textContent);
+            });
+            
+            console.log('Total items in nav-left after cloning:', navLeftList.children.length);
+            
+            // Actualizar la lista de enlaces para incluir los nuevos
+            const allNavLinks = navLeftList.querySelectorAll('a');
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        } else {
+            // Limpiar elementos clonados en desktop
+            const navLeftList = navLeft.querySelector('.nav-list');
+            const clonedItems = navLeftList.querySelectorAll('.mobile-clone');
+            clonedItems.forEach(clone => clone.remove());
+        }
+    }
+
+    // Configurar menú móvil al cargar
+    setupMobileMenu();
+
+    // Agregar evento para redimensionamiento de ventana
+    window.addEventListener('resize', setupMobileMenu);
 
     console.log('Elementos encontrados:', {
         hamburger,
@@ -32,9 +75,8 @@ function initHamburgerMenu() {
         // Alternar clase en el body para el scroll
         body.classList.toggle('menu-open', isActive);
         
-        // Mostrar/ocultar menús
+        // Solo mostrar nav-left en móvil
         if (navLeft) navLeft.classList.toggle('active', isActive);
-        if (navRight) navRight.classList.toggle('active', isActive);
         
         console.log('Menú ' + (isActive ? 'abierto' : 'cerrado'));
     }
@@ -45,7 +87,6 @@ function initHamburgerMenu() {
         hamburger.classList.remove('active');
         body.classList.remove('menu-open');
         if (navLeft) navLeft.classList.remove('active');
-        if (navRight) navRight.classList.remove('active');
     }
 
     // Evento para el botón hamburguesa
