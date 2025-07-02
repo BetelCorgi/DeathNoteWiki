@@ -4,37 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Hamburger Menu</title>
-    <style>
-        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
-        .navbar { background: #333; padding: 10px; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left, .nav-right { display: flex; }
-        .nav-list { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
-        .nav-list a { color: white; text-decoration: none; }
-        .burger { display: none; flex-direction: column; cursor: pointer; }
-        .barra-hamburguesa { width: 25px; height: 3px; background: white; margin: 3px 0; }
-        
-        @media (max-width: 768px) {
-            .burger { display: flex; }
-            .nav-right { display: none; }
-            .nav-left {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100vh;
-                background: rgba(0,0,0,0.9);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                transition: left 0.3s;
-                z-index: 1000;
-            }
-            .nav-left.active { left: 0; }
-            .nav-left .nav-list { flex-direction: column; gap: 30px; }
-            .nav-left .nav-list a { font-size: 1.5rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="Principal/assets/CSS/testHamburguesa.css">
 </head>
 <body>
     <header class="navbar">
@@ -66,54 +36,7 @@
         <h1>Test Page</h1>
         <p>Resize window to test hamburger menu</p>
     </main>
-    
-    <script>
-        console.log('Testing hamburger menu...');
-        
-        function initHamburgerMenu() {
-            const hamburger = document.querySelector('.burger');
-            const navLeft = document.querySelector('.nav-left');
-            const navRight = document.querySelector('.nav-right');
-            
-            console.log('Elements found:', { hamburger, navLeft, navRight });
-            
-            function setupMobileMenu() {
-                if (window.innerWidth <= 768) {
-                    const navLeftList = navLeft.querySelector('.nav-list');
-                    const navRightList = navRight.querySelector('.nav-list');
-                    
-                    // Clear existing clones
-                    const existingClones = navLeftList.querySelectorAll('.mobile-clone');
-                    existingClones.forEach(clone => clone.remove());
-                    
-                    // Clone nav-right items to nav-left
-                    const rightItems = navRightList.querySelectorAll('li');
-                    rightItems.forEach(item => {
-                        const clonedItem = item.cloneNode(true);
-                        clonedItem.classList.add('mobile-clone');
-                        navLeftList.appendChild(clonedItem);
-                    });
-                    
-                    console.log('Mobile menu setup complete. Items in nav-left:', navLeftList.children.length);
-                } else {
-                    // Clean up clones on desktop
-                    const navLeftList = navLeft.querySelector('.nav-list');
-                    const clonedItems = navLeftList.querySelectorAll('.mobile-clone');
-                    clonedItems.forEach(clone => clone.remove());
-                }
-            }
-            
-            setupMobileMenu();
-            window.addEventListener('resize', setupMobileMenu);
-            
-            hamburger.addEventListener('click', function() {
-                const isActive = hamburger.classList.toggle('active');
-                navLeft.classList.toggle('active', isActive);
-                console.log('Menu toggled:', isActive);
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', initHamburgerMenu);
-    </script>
+
+    <script src="Principal/assets/JS/testHamburguesa.js"></script>
 </body>
 </html>
