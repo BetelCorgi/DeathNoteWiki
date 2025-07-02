@@ -46,13 +46,13 @@
         }
 
         .falling-book {
-            max-width: 100%;
-            max-height: 90vh; /* Limita la altura para evitar desbordamiento */
-            width: auto;
-            height: auto;
-            object-fit: contain; /* Mantiene la proporción de la imagen */
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the container while maintaining aspect ratio */
             filter: drop-shadow(0 0 20px rgba(224, 196, 139, 0.8));
-            margin-bottom: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .falling-message {
@@ -512,6 +512,7 @@
         @media (max-width: 768px) {
             .falling-book-container {
                 max-width: 100%;
+                position: fixed;
             }
 
             .falling-message {
