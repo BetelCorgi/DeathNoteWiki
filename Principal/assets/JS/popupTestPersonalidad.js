@@ -1,33 +1,49 @@
-    // Variables globales para el progreso del test
+<!-- Asegúrate de tener SweetAlert2 antes de tu script -->
+    /* ─────────────  VARIABLES GLOBALES  ───────────── */
     let progresoTest = 0;
     const totalPreguntas = 10;
 
-    // Función para abrir test de personalidad (onclick)
+    /* ─────────────  ABRIR TEST  ───────────── */
     function abrirTestPersonalidad() {
-    // Confirm antes de abrir el test
-    const confirmar = confirm('¿Estás listo para descubrir qué personaje de Death Note eres? El test tiene 10 preguntas.');
+    Swal.fire({
+        title: '¿Estás listo?',
+        text: 'El test tiene 10 preguntas. ¿Quieres empezar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, comenzar',
+        cancelButtonText: 'Cancelar'
+    }).then(result => {
+        if (!result.isConfirmed) return;      // Usuario canceló
 
-    if (confirmar) {
-    const testPopup = document.getElementById('testPopup');
-    testPopup.classList.add('active');
-    document.body.style.overflow = 'hidden';
+        /* 1. Mostramos el popup del test */
+        const testPopup = document.getElementById('testPopup');
+        testPopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
-    // Prompt opcional para personalizar la experiencia
-    const nombre = prompt('¿Cuál es tu nombre? (opcional)');
-    if (nombre && nombre.trim() !== '') {
-    const tituloTest = document.querySelector('.popup-title');
-    tituloTest.textContent = `Test de Personalidad Death Note - ${nombre}`;
-    console.log('Test iniciado por:', nombre);
+        /* 2. Preguntamos el nombre (opcional) */
+        Swal.fire({
+            title: '¿Cuál es tu nombre?',
+            input: 'text',
+            inputPlaceholder: 'Nombre (opcional)',
+            showCancelButton: true,
+            confirmButtonText: 'Comenzar',
+            cancelButtonText: 'Saltar'
+        }).then(nameResult => {
+            if (nameResult.isConfirmed && nameResult.value.trim() !== '') {
+                document.querySelector('.popup-title').textContent =
+                    `Test de Personalidad Death Note - ${nameResult.value}`;
+                console.log('Test iniciado por:', nameResult.value);
+            }
+        });
+
+        console.log('Popup del test abierto');
+    });
 }
-}
 
-    console.log('Popup del test abierto');
-}
-
-    // Función para cerrar el test de personalidad (onclick)
+    /* ─────────────  CERRAR TEST  ───────────── */
     function cerrarTestPersonalidad() {
-    const testPopup = document.getElementById('testPopup');
-    const successMessage = document.getElementById('successMessage');
+    const testPopup       = document.getElementById('testPopup');
+    const successMessage  = document.getElementById('successMessage');
     const personalityTest = document.getElementById('personalityTest');
 
     testPopup.classList.remove('active');
@@ -36,18 +52,13 @@
     personalityTest.reset();
     progresoTest = 0;
 
-    // Resetear título del test
-    const tituloTest = document.querySelector('.popup-title');
-    tituloTest.textContent = 'Test de Personalidad Death Note';
-
-    // Resetear estilos de todas las opciones
-    const labels = document.querySelectorAll('.option label');
-    labels.forEach(label => {
+    /* Reset visual */
+    document.querySelector('.popup-title').textContent =
+    'Test de Personalidad Death Note';
+    document.querySelectorAll('.option label').forEach(label => {
     label.style.backgroundColor = '';
     label.style.color = '';
 });
-
-    // Resetear botón submit
     const submitBtn = document.querySelector('.submit-btn');
     submitBtn.style.backgroundColor = '#666';
     submitBtn.style.transform = 'scale(1)';
@@ -55,22 +66,13 @@
     console.log('Test de personalidad cerrado');
 }
 
-    // Función para actualizar progreso (onchange)
+    /* ─────────────  PROGRESO  ───────────── */
     function actualizarProgreso() {
-    const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
-    let preguntasRespondidas = 0;
+    const preguntas = Array.from({ length: 10 }, (_, i) => `q${i + 1}`);
+    const respondidas = preguntas.filter(q =>
+    document.querySelector(`input[name="${q}"]:checked`));
+    progresoTest = respondidas.length / totalPreguntas * 100;
 
-    preguntas.forEach(pregunta => {
-    const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
-    if (respuesta) {
-    preguntasRespondidas++;
-}
-});
-
-    progresoTest = (preguntasRespondidas / totalPreguntas) * 100;
-    console.log(`Progreso del test: ${progresoTest.toFixed(0)}%`);
-
-    // Cambiar color del botón según el progreso
     const submitBtn = document.querySelector('.submit-btn');
     if (progresoTest === 100) {
     submitBtn.style.backgroundColor = '#8B0000';
@@ -79,238 +81,179 @@
     submitBtn.style.backgroundColor = '#666';
     submitBtn.style.transform = 'scale(1)';
 }
+    console.log(`Progreso del test: ${progresoTest.toFixed(0)}%`);
 }
 
-    // Función para seleccionar opción (onclick en labels)
-    function seleccionarOpcion(opcionId) {
-    const input = document.getElementById(opcionId);
+    /* ─────────────  SELECCIONAR OPCIÓN  ───────────── */
+    function seleccionarOpcion(id) {
+    const input  = document.getElementById(id);
+    const label  = document.querySelector(`label[for="${id}"]`);
     input.checked = true;
 
-    // Efecto visual al seleccionar
-    const label = document.querySelector(`label[for="${opcionId}"]`);
+    /* Estilo seleccionado */
     label.style.backgroundColor = '#8B0000';
     label.style.color = '#e0c48b';
 
-    // Remover estilo de otras opciones del mismo grupo
-    const pregunta = opcionId.substring(0, 2); // q1, q2, etc.
-    const otrasOpciones = document.querySelectorAll(`input[name="${pregunta}"]`);
-    otrasOpciones.forEach(opcion => {
-    if (opcion.id !== opcionId) {
-    const otraLabel = document.querySelector(`label[for="${opcion.id}"]`);
-    otraLabel.style.backgroundColor = '';
-    otraLabel.style.color = '';
+    /* Reset otros labels del grupo */
+    const grupo = id.slice(0, 2); // "q1", "q2"...
+    document.querySelectorAll(`input[name="${grupo}"]`).forEach(op => {
+    if (op.id !== id) {
+    const l = document.querySelector(`label[for="${op.id}"]`);
+    l.style.backgroundColor = '';
+    l.style.color = '';
 }
 });
 
     actualizarProgreso();
-    console.log(`Opción seleccionada: ${opcionId}`);
+    console.log('Opción seleccionada:', id);
 }
 
-    // Función para procesar resultado del test (onsubmit)
-    function procesarResultadoTest(event) {
-    event.preventDefault();
+    /* ─────────────  PROCESAR RESULTADO  ───────────── */
+    function procesarResultadoTest(e) {
+    e.preventDefault();
 
-    // Verificar que todas las preguntas estén respondidas
-    const preguntas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
-    let preguntasRespondidas = 0;
-
-    preguntas.forEach(pregunta => {
-    const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
-    if (respuesta) {
-    preguntasRespondidas++;
-}
+    /* 1. Validar que todo esté respondido */
+    const faltantes = 10 - document.querySelectorAll('input:checked').length;
+    if (faltantes > 0) {
+    Swal.fire({
+    icon: 'warning',
+    title: '¡Faltan preguntas!',
+    text: `Responde las ${faltantes} preguntas restantes para continuar.`,
 });
-
-    // Alert si no están todas las preguntas respondidas
-    if (preguntasRespondidas < 10) {
-    alert(`Por favor responde todas las preguntas. Te faltan ${10 - preguntasRespondidas} preguntas por responder.`);
     return;
 }
 
-    // Calcular resultado basado en respuestas
-    const respuestas = {
-    light: 0, l: 0, near: 0, mello: 0,
-    misa: 0
-};
+    /* 2. Contar resultados */
+    const puntaje = { light:0, l:0, near:0, mello:0, misa:0 };
+    document.querySelectorAll('input:checked').forEach(r => puntaje[r.value]++);
+    const personajeResultado = Object.entries(puntaje)
+    .sort((a,b) => b[1]-a[1])[0][0];
 
-    preguntas.forEach(pregunta => {
-    const respuesta = document.querySelector(`input[name="${pregunta}"]:checked`);
-    if (respuesta) {
-    respuestas[respuesta.value]++;
-}
-});
-
-    // Encontrar el personaje con más puntos
-    let personajeResultado = 'light';
-    let maxPuntos = 0;
-    for (const [personaje, puntos] of Object.entries(respuestas)) {
-    if (puntos > maxPuntos) {
-    maxPuntos = puntos;
-    personajeResultado = personaje;
-}
+    Swal.fire({
+    title: 'Procesando resultado...',
+    icon: 'info',
+    timer: 1200,
+    showConfirmButton: false,
+    didOpen: () => Swal.showLoading()
+}).then(() => mostrarResultado(personajeResultado));
 }
 
-    // Alert de confirmación de resultados enviados
-    alert('¡Resultados del test procesados correctamente! Preparando tu resultado personalizado...');
+    /* ─────────────  MOSTRAR RESULTADO  ───────────── */
+    function mostrarResultado(key) {
+    const data = {
+    light:{nombre:'Light Yagami (Kira)',   imagen:'Principal/assets/images/Personajes/Light-Yagami/LightYagami.jpg',
+    desc:'Eres un genio estratega...', tags:['Inteligente','Estratega','Carismático','Determinado','Visionario']},
+    l:{     nombre:'L Lawliet',            imagen:'Principal/assets/images/Personajes/L-Lawliet/L-Lawliet.jpg',
+    desc:'Eres un detective brillante...', tags:['Analítico','Brillante','Excéntrico','Observador','Justo']},
+    near:{  nombre:'Near (Nate River)',    imagen:'Principal/assets/images/Personajes/Near/Near.jpg',
+    desc:'Eres calmado y metódico...', tags:['Paciente','Metódico','Observador','Racional','Sistemático']},
+    mello:{ nombre:'Mello (Mihael Keehl)', imagen:'Principal/assets/images/Personajes/Mello/Mello.jpg',
+    desc:'Eres apasionado e impulsivo...', tags:['Apasionado','Impulsivo','Competitivo','Leal','Determinado']},
+    misa:{  nombre:'Misa Amane',           imagen:'Principal/assets/images/Personajes/Misa-Amane/Misa-Amane.jpg',
+    desc:'Eres emotiva y devota...', tags:['Emotiva','Devota','Leal','Apasionada','Intuitiva']}
+}[key];
 
-    console.log('Resultado del test:', personajeResultado, 'con', maxPuntos, 'puntos');
-    mostrarResultado(personajeResultado);
+    const success = document.getElementById('successMessage');
+    const cont    = document.getElementById('resultadoPersonaje');
+
+    cont.innerHTML = `
+    <div class="resultado-header">
+      <img src="${data.imagen}" alt="${data.nombre}" class="resultado-imagen">
+      <div class="resultado-info">
+        <h3 class="resultado-titulo">¡Eres ${data.nombre}!</h3>
+        <div class="resultado-caracteristicas">
+          ${data.tags.map(t=>`<span class="caracteristica-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    <p class="resultado-descripcion">${data.desc}</p>
+    <div class="resultado-acciones">
+      <button onclick="reiniciarTest()"              class="btn-reiniciar">Hacer test de nuevo</button>
+      <button onclick="compartirResultado('${key}')" class="btn-compartir">Compartir resultado</button>
+    </div>`;
+
+    success.classList.add('active');
+    setTimeout(() => success.scrollIntoView({ behavior:'smooth', block:'center' }), 100);
+    console.log('Resultado mostrado para:', data.nombre);
 }
 
-    // Función para mostrar resultado (onclick en botón submit)
-    function mostrarResultado(personaje) {
-    const successMessage = document.getElementById('successMessage');
-    const resultadoPersonaje = document.getElementById('resultadoPersonaje');
-
-    // Datos de cada personaje
-    const personajes = {
-    light: {
-    nombre: 'Light Yagami (Kira)',
-    imagen: 'Principal/assets/images/Personajes/Light-Yagami/LightYagami.jpg',
-    descripcion: 'Eres un genio estratega con una visión clara de cómo debería ser el mundo. Tu inteligencia superior y tu determinación te llevan a tomar decisiones difíciles para crear lo que consideras un mundo perfecto. Tienes una personalidad carismática pero también un lado oscuro impulsado por tu sentido de justicia.',
-    caracteristicas: ['Inteligente', 'Estratega', 'Carismático', 'Determinado', 'Visionario']
-},
-    l: {
-    nombre: 'L Lawliet',
-    imagen: 'Principal/assets/images/Personajes/L-Lawliet/L-Lawliet.jpg',
-    descripcion: 'Eres un detective brillante con una mente analítica excepcional. Tu capacidad para resolver los casos más complejos es legendaria. Aunque puedes parecer excéntrico, tu dedicación a la verdad y la justicia es inquebrantable. Prefieres trabajar en las sombras y confías en tu lógica por encima de todo.',
-    caracteristicas: ['Analítico', 'Brillante', 'Excéntrico', 'Observador', 'Justo']
-},
-    near: {
-    nombre: 'Near (Nate River)',
-    imagen: 'Principal/assets/images/Personajes/Near/Near.jpg',
-    descripcion: 'Eres una persona calmada y metódica que prefiere observar antes de actuar. Tu paciencia y atención al detalle te permiten resolver problemas complejos de manera sistemática. Aunque puedes parecer frío, tu enfoque racional te ayuda a tomar las mejores decisiones.',
-    caracteristicas: ['Paciente', 'Metódico', 'Observador', 'Racional', 'Sistemático']
-},
-    mello: {
-    nombre: 'Mello (Mihael Keehl)',
-    imagen: 'Principal/assets/images/Personajes/Mello/Mello.jpg',
-    descripcion: 'Eres una persona apasionada e impulsiva que no teme tomar riesgos para alcanzar tus objetivos. Tu determinación y tu naturaleza competitiva te impulsan a actuar rápidamente. Aunque puedes ser temperamental, tu lealtad hacia quienes te importan es inquebrantable.',
-    caracteristicas: ['Apasionado', 'Impulsivo', 'Competitivo', 'Leal', 'Determinado']
-},
-    misa: {
-    nombre: 'Misa Amane',
-    imagen: 'Principal/assets/images/Personajes/Misa-Amane/Misa-Amane.jpg',
-    descripcion: 'Eres una persona emotiva y devota que valora profundamente las relaciones personales. Tu capacidad para amar incondicionalmente y tu lealtad son tus mayores fortalezas. Aunque puedes ser impulsiva en tus decisiones, siempre actúas desde el corazón.',
-    caracteristicas: ['Emotiva', 'Devota', 'Leal', 'Apasionada', 'Intuitiva']
-}
-};
-
-    const datosPersonaje = personajes[personaje];
-
-    successMessage.classList.add('active');
-    resultadoPersonaje.innerHTML = `
-            <div class="resultado-header">
-                <img src="${datosPersonaje.imagen}" alt="${datosPersonaje.nombre}" class="resultado-imagen">
-                <div class="resultado-info">
-                    <h3 class="resultado-titulo">¡Eres ${datosPersonaje.nombre}!</h3>
-                    <div class="resultado-caracteristicas">
-                        ${datosPersonaje.caracteristicas.map(car => `<span class="caracteristica-tag">${car}</span>`).join('')}
-                    </div>
-                </div>
-            </div>
-            <p class="resultado-descripcion">${datosPersonaje.descripcion}</p>
-            <div class="resultado-acciones">
-                <button onclick="reiniciarTest()" class="btn-reiniciar">Hacer test de nuevo</button>
-                <button onclick="compartirResultado('${personaje}')" class="btn-compartir">Compartir resultado</button>
-            </div>
-        `;
-
-    // Desplazarse al mensaje de éxito
-    setTimeout(() => {
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}, 100);
-
-    console.log('Resultado mostrado para:', datosPersonaje.nombre);
-}
-
-    // Función para reiniciar el test
     function reiniciarTest() {
-    const testPopup = document.getElementById('testPopup');
-    const successMessage = document.getElementById('successMessage');
-    const personalityTest = document.getElementById('personalityTest');
-
-    successMessage.classList.remove('active');
-    personalityTest.reset();
-    progresoTest = 0;
-
-    // Resetear título del test
-    const tituloTest = document.querySelector('.popup-title');
-    tituloTest.textContent = 'Test de Personalidad Death Note';
-
-    // Resetear estilos de todas las opciones
-    const labels = document.querySelectorAll('.option label');
-    labels.forEach(label => {
-    label.style.backgroundColor = '';
-    label.style.color = '';
-});
-
-    // Resetear botón submit
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.style.backgroundColor = '#666';
-    submitBtn.style.transform = 'scale(1)';
-
+    cerrarTestPersonalidad();  // reaprovechamos la función de cierre
     console.log('Test reiniciado');
 }
 
-    // Función para compartir resultado
-    function compartirResultado(personaje) {
+function compartirResultado(personaje) {
     const personajes = {
-    light: 'Light Yagami (Kira)',
-    l: 'L Lawliet',
-    near: 'Near',
-    mello: 'Mello',
-    misa: 'Misa Amane'
-};
+        light: 'Light Yagami (Kira)',
+        l: 'L Lawliet',
+        near: 'Near',
+        mello: 'Mello',
+        misa: 'Misa Amane'
+    };
 
-    // Confirm antes de compartir
-    const confirmarCompartir = confirm(`¿Quieres compartir que eres ${personajes[personaje]} en el test de Death Note?`);
+    Swal.fire({
+        title: '¿Quieres compartir tu resultado?',
+        text: `Eres ${personajes[personaje]}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Compartir',
+        cancelButtonText: 'Cancelar'
+    }).then(res => {
+        if (!res.isConfirmed) return;
 
-    if (confirmarCompartir) {
-    // Prompt para personalizar el mensaje
-    const mensajePersonal = prompt('¿Quieres agregar un mensaje personal? (opcional)', '');
+        Swal.fire({
+            title: 'Mensaje personal (opcional)',
+            input: 'text',
+            inputPlaceholder: 'Escribe algo...',
+            showCancelButton: true,
+            confirmButtonText: 'Listo',
+            cancelButtonText: 'Omitir'
+        }).then(inputRes => {
+            let mensaje = `¡Acabo de hacer el test de personalidad de Death Note y soy ${personajes[personaje]}! 🖤📓`;
+            if (inputRes.isConfirmed && inputRes.value.trim() !== '') {
+                mensaje += `\n\n"${inputRes.value}"`;
+            }
 
-    let texto = `¡Acabo de hacer el test de personalidad de Death Note y soy ${personajes[personaje]}! 🖤📓`;
-    if (mensajePersonal && mensajePersonal.trim() !== '') {
-    texto += `\n\n"${mensajePersonal}"`;
+            const textoCompleto = `${mensaje} ${location.href}`;
+
+            const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+            const isHttps = location.protocol === 'https:';
+            const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+            // Validar uso seguro de Web Share API
+            if (navigator.share && isMobile && isHttps && !isLocalhost) {
+                navigator.share({
+                    title: 'Test Death Note',
+                    text: mensaje,
+                    url: location.href
+                }).then(() => {
+                    Swal.fire('Compartido', '¡Resultado compartido exitosamente!', 'success');
+                }).catch(() => {
+                    copiarAlPortapapeles(textoCompleto);
+                });
+            } else {
+                copiarAlPortapapeles(textoCompleto);
+            }
+        });
+    });
 }
 
-    if (navigator.share) {
-    navigator.share({
-    title: 'Test de Personalidad Death Note',
-    text: texto,
-    url: window.location.href
-}).then(() => {
-    alert('¡Resultado compartido exitosamente!');
-}).catch(() => {
-    // Fallback si falla el share nativo
-    copiarAlPortapapeles(texto);
-});
-} else {
-    // Fallback para navegadores que no soportan Web Share API
-    copiarAlPortapapeles(texto);
-}
-}
+function copiarAlPortapapeles(texto) {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(texto)
+            .then(() => Swal.fire('Copiado', 'Texto copiado al portapapeles', 'success'))
+            .catch(() => fallbackManual(texto));
+    } else {
+        fallbackManual(texto);
+    }
 
-    console.log('Compartiendo resultado:', personajes[personaje]);
-}
-
-    // Función auxiliar para copiar al portapapeles
-    function copiarAlPortapapeles(texto) {
-    if (navigator.clipboard) {
-    navigator.clipboard.writeText(texto + ' ' + window.location.href).then(() => {
-    alert('¡Resultado copiado al portapapeles! Puedes pegarlo en tus redes sociales.');
-}).catch(() => {
-    // Fallback manual
-    const textArea = document.createElement('textarea');
-    textArea.value = texto + ' ' + window.location.href;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    alert('¡Resultado copiado al portapapeles!');
-});
-} else {
-    alert('Tu navegador no soporta copiar automáticamente. Copia manualmente este texto:\n\n' + texto + '\n\n' + window.location.href);
-}
+    function fallbackManual(texto) {
+        const ta = document.createElement('textarea');
+        ta.value = texto;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        Swal.fire('Copiado', 'Texto copiado (método manual)', 'success');
+    }
 }
