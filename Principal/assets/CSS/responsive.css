@@ -205,4 +205,117 @@
     .botones-container {
         display: none !important;
     }
+
+    /* Estilos responsivos para la tabla Death Note */
+    .deathnote-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
+    }
+
+    .deathnote-table thead {
+        display: none;
+    }
+
+    .deathnote-table tbody, 
+    .deathnote-table tr, 
+    .deathnote-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .deathnote-table tr {
+        margin-bottom: 20px;
+        border: 1px solid #e0c48b;
+        border-radius: 8px;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .deathnote-table td {
+        padding: 10px 15px;
+        text-align: left;
+        position: relative;
+        padding-left: 40%;
+        min-height: 40px;
+        border-bottom: 1px solid rgba(224, 196, 139, 0.2);
+    }
+
+    .deathnote-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 35%;
+        padding-right: 15px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #e0c48b;
+    }
+
+    .deathnote-table td:last-child {
+        border-bottom: none;
+    }
+
+    .deathnote-table td img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .animeEstilo {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Estilos para el título de la tabla */
+    .personaje-titulo {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        text-align: center;
+        color: #e0c48b;
+        font-family: 'UnifrakturCook', cursive;
+    }
+
+    /* Mejoras para el botón de guardar */
+    #saveButton {
+        display: block;
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background: #e0c48b;
+        color: #000;
+        border: none;
+        border-radius: 5px;
+        font-family: 'UnifrakturCook', cursive;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #saveButton:hover {
+        background: #ffe6b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(224, 196, 139, 0.5);
+    }
+
+    /* Asegurar que el contenedor de la tabla sea responsivo */
+    .deathnote-page {
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    /* Ajustes para el libro */
+    .deathnote-book {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 }
