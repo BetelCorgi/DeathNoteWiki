@@ -1,0 +1,29 @@
+body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+.navbar { background: #333; padding: 10px; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.nav-left, .nav-right { display: flex; }
+.nav-list { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
+.nav-list a { color: white; text-decoration: none; }
+.burger { display: none; flex-direction: column; cursor: pointer; }
+.barra-hamburguesa { width: 25px; height: 3px; background: white; margin: 3px 0; }
+
+@media (max-width: 768px) {
+    .burger { display: flex; }
+    .nav-right { display: none; }
+    .nav-left {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.3s;
+        z-index: 1000;
+    }
+    .nav-left.active { left: 0; }
+    .nav-left .nav-list { flex-direction: column; gap: 30px; }
+    .nav-left .nav-list a { font-size: 1.5rem; }
+}
