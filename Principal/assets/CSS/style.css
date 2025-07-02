@@ -198,6 +198,7 @@ body {
     align-items: center;
     margin: 50px 0 30px 0;
 }
+
 .musica-titulo {
     font-family: 'UnifrakturCook', cursive;
     color: #e0c48b;
@@ -206,6 +207,7 @@ body {
     margin-bottom: 30px;
     text-shadow: 0 0 14px rgba(224, 196, 139, 0.6);
 }
+
 .musica-destacada-card {
     display: flex;
     flex-direction: row;
@@ -219,6 +221,7 @@ body {
     align-items: center;
     margin-bottom: 30px;
 }
+
 .musica-destacada-imagen img {
     width: 220px;
     height: 220px;
@@ -227,32 +230,47 @@ body {
     box-shadow: 0 0 16px #0008;
     background: #222;
 }
+
 .musica-destacada-info {
     flex: 1;
     color: #f5f5f5;
     font-size: 1.07rem;
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
+
 .musica-destacada-info h3 {
     font-family: 'UnifrakturCook', cursive;
     color: #e0c48b;
     font-size: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 0; /* Elimina espacio después del título */
 }
+
 .musica-destacada-descripcion {
     font-size: 1rem;
     color: #e0c48b;
-    margin: 12px 0 14px 0;
     font-style: italic;
+    margin-top: 0; /* Elimina espacio antes de la descripción */
 }
+
 .musica-destacada-controles {
     display: flex;
     align-items: center;
     gap: 22px;
     margin-top: 12px;
 }
+
+/* Elimina todos los espacios entre párrafos */
+.musica-destacada-info p {
+    margin: 10px; /* Elimina todos los márgenes de los párrafos */
+}
+
+/* Si quieres un espacio muy pequeño entre párrafos, usa esto en lugar de lo anterior: */
+/*
+.musica-destacada-info p {
+    margin-bottom: 2px;
+}
+*/
 .spotify-btn {
     display: inline-flex;
     align-items: center;
