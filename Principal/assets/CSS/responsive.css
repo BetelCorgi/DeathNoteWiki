@@ -1,0 +1,208 @@
+.burger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+}
+
+.barra-hamburguesa {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+} 
+
+/* Estilos para móviles */
+@media(max-width: 768px) {
+    /* Estilos para el botón hamburguesa */
+    .burger {
+        display: block !important; /* Forzar visibilidad */
+        position: fixed;
+        right: 20px;
+        top: 25px;
+        z-index: 1001;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 4px;
+        border: 1px solid #e0c48b;
+    }
+
+    .burger .barra-hamburguesa {
+        background-color: #e0c48b;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .burger.active .barra-hamburguesa:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active .barra-hamburguesa:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .burger.active .barra-hamburguesa:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    /* Estilos para los menús de navegación en móvil */
+    .nav-left {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 0;
+        margin: 0;
+        transition: all 0.4s ease-in-out;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Ocultar nav-right en móvil */
+    .nav-right {
+        display: none;
+    }
+
+    .nav-left.active {
+        left: 0;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Agregar elementos adicionales al menú usando pseudo-elementos */
+    .nav-left .nav-list::after {
+        content: '';
+        display: block;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        position: relative;
+    }
+
+    .nav-list li {
+        margin: 15px 0;
+        list-style: none;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+    }
+
+    .nav-list a {
+        font-family: 'UnifrakturCook', cursive;
+        font-size: 2rem;
+        padding: 15px 30px;
+        color: #e0c48b;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+
+    .nav-list a:hover {
+        color: #fff;
+        transform: scale(1.05);
+    }
+
+    /* Mostrar los elementos del menú con animación */
+    .nav-left.active .nav-list li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Animación escalonada para todos los elementos */
+    .nav-left.active .nav-list li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-left.active .nav-list li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-left.active .nav-list li:nth-child(3) { transition-delay: 0.3s; }
+
+    /* Evitar scroll cuando el menú está abierto */
+    body.menu-open {
+        overflow: hidden;
+        height: 100vh;
+    }
+    
+    /* Ajustes para el contenido principal cuando el menú está abierto */
+    body.menu-open .center-content {
+        filter: blur(3px);
+        pointer-events: none;
+    }
+
+    /* Estilos específicos para página de Personajes en móvil */
+    .personajes-background {
+        background-image: none !important; /* Ocultar imagen de fondo */
+        background-color: #000000; /* Fondo negro sólido */
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .nombres-container {
+        position: static !important; /* Cambiar de absolute a static */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        width: 100%;
+        height: auto;
+    }
+
+    .nombre-personaje {
+        position: static !important; /* Cambiar de absolute a static */
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        max-width: 90% !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 15px 20px !important;
+        font-size: 1.1rem !important;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        border: 1px solid #e0c48b;
+        border-radius: 8px;
+        text-decoration: none !important; /* Quitar subrayado de enlaces */
+        color: #ffffff !important; /* Color del texto */
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .nombre-personaje:hover {
+        background-color: rgba(224, 196, 139, 0.2) !important;
+        border-color: #ffe6b3 !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 4px 8px rgba(224, 196, 139, 0.3);
+    }
+
+    /* Ocultar botones de personajes en móvil ya que solo queremos mostrar nombres con frases */
+    .botones-container {
+        display: none !important;
+    }
+}

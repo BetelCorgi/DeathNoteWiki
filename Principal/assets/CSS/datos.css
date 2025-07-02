@@ -12,7 +12,12 @@
 
 /* Para #htmlData y #bodyData con overflow: auto */
 #htmlData, #bodyData {
-    overflow: auto !important; /* Permitimos el scroll en estas configuraciones */
+    overflow: auto; /* Permitimos el scroll en estas configuraciones */
+}
+
+/* Cuando el menú hamburguesa está activo, controlar el overflow */
+#bodyData.menu-open {
+    overflow: hidden !important;
 }
 
 /* Estilos de bodyData */
@@ -81,9 +86,11 @@ main {
     z-index: 1;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 20px;
     box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
-    transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+    transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s, opacity 0.3s ease-in-out;
+    overflow: hidden;
 }
 
 .item:nth-child(1),
@@ -118,11 +125,16 @@ main {
     top: 50%;
     left: 3rem;
     transform: translateY(-50%);
-    font: 400 0.85rem helvetica, sans-serif;
+    font: 400 0.85rem 'Roboto', sans-serif;
     color: white;
     text-shadow: 0 3px 8px rgba(0,0,0,0.5);
     opacity: 0;
     display: none;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
 }
 
 .content .title {
@@ -215,14 +227,68 @@ main {
 }
 
 @media (width < 650px) {
+    .slider {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+        height: auto !important;
+        position: relative !important;
+        transform: none !important;
+    }
+
+    .item {
+        position: relative !important;
+        width: 90% !important;
+        height: 400px !important;
+        transform: none !important;
+        top: auto !important;
+        left: auto !important;
+        margin: 0 auto;
+        opacity: 1 !important;
+        margin-bottom: 2rem;
+    }
+
+    .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        transform: none;
+        width: 100%;
+        padding: 1.5rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        border-radius: 0 0 20px 20px;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
     .content .title {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
     }
+
     .content .description {
-        font-size: 0.65rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin: 0.8rem 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+
     .content button {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .nav {
+        display: none;
     }
     .item {
         width: 130px;
@@ -243,10 +309,7 @@ main {
     }
 }
 
-
 /*Este es para el tipo de letra death note */
-
-
 
 p {
     font-size: 140%;
@@ -256,8 +319,6 @@ p {
     margin: 2.5rem 0 5.5rem;
 
 }
-
-
 
 #containerInfo {
     height: 100%;
@@ -982,3 +1043,39 @@ button:hover {
         font-size: 1em;
     }
 }
+
+/* Reglas específicas para el menú hamburguesa en la página de datos */
+@media (max-width: 768px) {
+    .navbar .nav-left.active {
+        z-index: 9999 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background-color: rgba(0, 0, 0, 0.95) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    .navbar .nav-left.active .nav-list {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 2rem !important;
+    }
+    
+    .navbar .nav-left.active .nav-list li a {
+        color: #fff !important;
+        font-size: 1.5rem !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+    }
+    
+    .navbar .nav-left.active .nav-list li a:hover {
+        color: #bb903a !important;
+    }
+}
+
