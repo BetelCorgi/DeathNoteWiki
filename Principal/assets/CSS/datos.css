@@ -16,9 +16,6 @@
 }
 
 /* Cuando el menú hamburguesa está activo, controlar el overflow */
-#bodyData.menu-open {
-    overflow: hidden !important;
-}
 
 /* Estilos de bodyData */
 #bodyData {
@@ -42,7 +39,7 @@
     left: -5px;
     right: -5px;
     bottom: -5px; /* Extiende más allá de los bordes */
-    z-index: 0;
+    z-index: -1;
     background: #000000;
     background-size: cover;
     filter: blur(18px) brightness(0.75);
@@ -59,7 +56,15 @@
     z-index: 1;
 }
 
+#bodyData.menu-open {
+    overflow: hidden !important;
+}
 
+
+#bodyData.menu-open .center-content {
+    filter: blur(3px);
+    pointer-events: none;
+}
 
 
 
@@ -75,6 +80,9 @@ main {
     height: 100%;
     box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
+
+
+
 
 .item {
     width: 200px;
@@ -103,6 +111,11 @@ main {
     border-radius: 0;
     box-shadow: none;
     opacity: 1;
+}
+
+#bodyData.menu-open {
+    overflow: hidden;
+    height: 100vh;
 }
 
 .item:nth-child(3) {
