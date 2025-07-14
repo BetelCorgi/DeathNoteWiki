@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color: #000000; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Death Note Wiki - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/CSS/style.css">
+    <link rel="stylesheet" href="../assets/CSS/media.css">
+    <link rel="stylesheet" href="../assets/CSS/footer.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .dashboard-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .test-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .test-card.coming-soon {
+            opacity: 0.7;
+            filter: grayscale(50%);
+        }
+
+        .test-card.coming-soon::after {
+            content: 'Próximamente';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #d4af37;
+            color: #000;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .test-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .test-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #222;
+            border-radius: 5px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .result-character {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #d4af37;
+        }
+
+        .result-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .result-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .take-test-btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .take-test-btn:hover {
+            background: #e6c05c;
+            color: #000;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .result-tag {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body id="bodyData">
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-left">
+                <ul class="nav-list">
+                    <li><a href="../Personajes/index.html">Personajes</a></li>
+                </ul>
+            </nav>
+
+            <div class="logo-container">
+                <a href="/index.html"><img src="../assets/images/LogoDeathNote.png" alt="Death Note Logo"
+                        class="logo"></a>
+            </div>
+
+            <nav class="nav-right">
+                <ul class="nav-list">
+                    <li><a href="../Datos/index.html">Datos</a></li>
+                    <li><a href="../Musica-multimedia/index.html">Media</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </button>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Tu Cuenta de Death Note</h1>
+            <p class="welcome-message" id="welcomeMessage">Bienvenido de vuelta, Usuario</p>
+        </div>
+
+        <h2 class="test-title">Tus Resultados de Test</h2>
+        
+        <div class="dashboard-grid" id="testResults">
+            <!-- Test 1: Personalidad -->
+            <div class="test-card" id="personality-test">
+                <h3 class="test-title">Test de Personalidad</h3>
+                <div id="personality-test-result">
+                    <p class="no-results">Aún no has realizado este test.</p>
+                    <a href="../../index.html#testPersonalidad" class="take-test-btn">Realizar Test</a>
+                </div>
+            </div>
+
+            <!-- Test 2: Lógica (Placeholder) -->
+            <div class="test-card coming-soon">
+                <h3 class="test-title">Test de Lógica</h3>
+                <p class="no-results">Próximamente disponible.</p>
+                <button class="take-test-btn" disabled>Próximamente</button>
+            </div>
+
+            <!-- Test 3: Conocimiento (Placeholder) -->
+            <div class="test-card coming-soon">
+                <h3 class="test-title">Test de Conocimiento</h3>
+                <p class="no-results">Próximamente disponible.</p>
+                <button class="take-test-btn" disabled>Próximamente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = '../login/index.html';
+                return;
+            }
+
+            // Update welcome message
+            document.getElementById('welcomeMessage').textContent = `Bienvenido de vuelta, ${currentUser.username}`;
+
+            // Load test results
+            loadTestResults(currentUser);
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                sessionStorage.removeItem('currentUser');
+                window.location.href = '../login/index.html';
+            });
+
+            // Listen for storage events to update when test is completed
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'testCompleted') {
+                    const updatedUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                    if (updatedUser) {
+                        loadTestResults(updatedUser);
+                    }
+                }
+            });
+        });
+
+        function loadTestResults(user) {
+            if (!user.testResults || user.testResults.length === 0) {
+                return; // No test results to display
+            }
+
+            // Get the latest personality test result
+            const personalityResults = user.testResults.filter(r => r.testType === 'personality');
+            const latestResult = personalityResults[0]; // Get the most recent result
+
+            if (latestResult) {
+                const characterImages = {
+                    'Light Yagami': '../assets/images/Personajes/LightYagami.jpg',
+                    'L Lawliet': '../assets/images/Personajes/L-Lawliet.jpg',
+                    'Near': '../assets/images/Personajes/Near.jpg',
+                    'Mello': '../assets/images/Personajes/Mello.jpg',
+                    'Misa Amane': '../assets/images/Personajes/Misa-Amane.jpg'
+                };
+
+                const characterDescriptions = {
+                    'Light Yagami': 'Eres un estratega nato con una fuerte convicción en tu propio sentido de la justicia. No temes tomar decisiones difíciles y estás dispuesto a asumir grandes responsabilidades para lograr tus objetivos.',
+                    'L Lawliet': 'Tienes una mente analítica excepcional y un enfoque único para resolver problemas. Eres observador, metódico y no te dejas influenciar fácilmente por las opiniones de los demás.',
+                    'Near': 'Eres extremadamente inteligente y analítico, con una gran capacidad para ver patrones donde otros no los ven. Prefieres trabajar en equipo y tomar decisiones basadas en la lógica pura.',
+                    'Mello': 'Eres apasionado y determinado, dispuesto a tomar riesgos que otros no tomarían. Tu enfoque directo y tu voluntad de hacer lo que sea necesario te convierten en una fuerza a tener en cuenta.',
+                    'Misa Amane': 'Eres leal y apasionada, dispuesta a hacer cualquier cosa por aquellos que amas. Tu corazón gobierna sobre tu mente, y aunque a veces puedes ser impulsiva, tus intenciones son siempre puras.'
+                };
+
+                const characterTags = {
+                    'Light Yagami': ['Estratega', 'Decidido', 'Carismático', 'Manipulador'],
+                    'L Lawliet': ['Analítico', 'Observador', 'Excéntrico', 'Lógico'],
+                    'Near': ['Inteligente', 'Metódico', 'Paciente', 'Estratégico'],
+                    'Mello': ['Apasionado', 'Audaz', 'Impulsivo', 'Determinado'],
+                    'Misa Amane': ['Leal', 'Apasionada', 'Emocional', 'Devota']
+                };
+
+                const resultDate = new Date(latestResult.date).toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const resultHtml = `
+                    <div class="test-result">
+                        <div class="result-header">
+                            <img src="${characterImages[latestResult.character] || '../assets/images/LogoDeathNote.png'}" 
+                                 alt="${latestResult.character}" 
+                                 class="result-character">
+                            <div>
+                                <div class="result-name">${latestResult.character}</div>
+                                <div class="result-date">Realizado el ${resultDate}</div>
+                            </div>
+                        </div>
+                        <div class="result-tags">
+                            ${characterTags[latestResult.character]?.map(tag => 
+                                `<span class="result-tag">${tag}</span>`).join('') || ''}
+                        </div>
+                        <p class="result-description">
+                            ${characterDescriptions[latestResult.character] || 'No hay descripción disponible para este personaje.'}
+                        </p>
+                        <a href="../../index.html#testPersonalidad" class="take-test-btn">Realizar de nuevo</a>
+                    </div>
+                `;
+
+                document.getElementById('personality-test-result').innerHTML = resultHtml;
+            }
+        }
+
+        // Function to save test result (called from the test page)
+        function saveTestResult(character) {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                return; // User not logged in
+            }
+
+            const testResult = {
+                testType: 'personality',
+                character: character,
+                date: new Date().toISOString(),
+                score: 0 // Can be calculated based on answers if needed
+            };
+
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('deathNoteUsers')) || [];
+            
+            // Find current user and update their test results
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                // Initialize testResults array if it doesn't exist
+                if (!users[userIndex].testResults) {
+                    users[userIndex].testResults = [];
+                }
+                
+                // Add new test result at the beginning of the array
+                users[userIndex].testResults.unshift(testResult);
+                
+                // Update localStorage
+                localStorage.setItem('deathNoteUsers', JSON.stringify(users));
+                
+                // Update session storage
+                sessionStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+                
+                // Trigger storage event to update other tabs
+                localStorage.setItem('testCompleted', Date.now().toString());
+                localStorage.removeItem('testCompleted');
+            }
+        }
+    </script>
+</body>
+
+</html>
