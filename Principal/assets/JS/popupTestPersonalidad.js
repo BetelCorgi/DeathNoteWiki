@@ -64,7 +64,7 @@ function abrirTestPersonalidad() {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'Principal/login/index.html';
+                window.location.href = '/Principal/login/';
             }
         });
         return;
@@ -319,7 +319,7 @@ function guardarResultadoTest(personajeKey, personajeNombre, puntuacion) {
     // Cerrar automáticamente después de 5 segundos y redirigir al dashboard
     setTimeout(() => {
         cerrarTestPersonalidad();
-        window.location.href = 'Principal/dashboard/index.html';
+        window.location.href = '/Principal/dashboard/';
     }, 5000);
 }
 

@@ -103,7 +103,7 @@ function procesarResultadoTest(event) {
             
             // Redirigir al dashboard después de 5 segundos
             setTimeout(() => {
-                window.location.href = 'Principal/dashboard/index.html';
+                window.location.href = '/Principal/dashboard/';
             }, 5000);
         } else {
             // Usuario no encontrado, solo mostrar resultado
