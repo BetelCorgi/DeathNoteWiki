@@ -459,7 +459,7 @@
             const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
             
             if (!currentUser) {
-                window.location.href = '../login/index.html';
+                window.location.href = '/DeathNoteWiki/Principal/login/index.html';
                 return;
             }
 
@@ -472,7 +472,7 @@
             // Logout button
             document.getElementById('logoutBtn').addEventListener('click', function() {
                 sessionStorage.removeItem('currentUser');
-                window.location.href = '../login/index.html';
+                window.location.href = '/DeathNoteWiki/Principal/login/index.html';
             });
 
             // Listen for storage events to update when test is completed

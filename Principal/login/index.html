@@ -246,7 +246,7 @@
                 sessionStorage.setItem('currentUser', JSON.stringify(user));
                 
                 // Redirect to dashboard
-                window.location.href = '../dashboard/index.html';
+                window.location.href = '/DeathNoteWiki/Principal/dashboard/index.html';
             } else {
                 showError('login-error', 'Usuario o contraseña incorrectos');
             }
@@ -263,7 +263,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const currentUser = sessionStorage.getItem('currentUser');
             if (currentUser) {
-                window.location.href = '../dashboard/index.html';
+                window.location.href = '/DeathNoteWiki/Principal/dashboard/index.html';
             }
         });
     </script>
