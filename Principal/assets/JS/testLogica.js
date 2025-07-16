@@ -77,7 +77,7 @@ function abrirTestLogica() {
             color: '#fff'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'Principal/login/';
+                window.location.href = '/Principal/login/';
             }
         });
         return;
