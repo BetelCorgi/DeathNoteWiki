@@ -361,13 +361,65 @@
     </div>
 </div>
 
+<!-- Popup para Test de Conocimiento -->
+<div class="popup-overlay" id="testConocimientoPopup">
+    <div class="popup-content">
+        <button class="popup-close" onclick="cerrarTestConocimiento()"><i class="fas fa-times"></i></button>
+        <h2 class="popup-title">Test de Conocimiento de Death Note</h2>
+        <div id="preguntaConocimientoContainer" class="test-container">
+            <!-- Las preguntas se cargarán aquí dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<!-- Popup para Test de Lógica -->
+<div class="popup-overlay" id="testLogicaPopup">
+    <div class="popup-content">
+        <button class="popup-close" onclick="cerrarTestLogica()"><i class="fas fa-times"></i></button>
+        <h2 class="popup-title">Test de Lógica al Estilo Death Note</h2>
+        <div id="preguntaLogicaContainer" class="test-container">
+            <!-- Las preguntas se cargarán aquí dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<!-- Sección de Tests -->
+<section class="tests-section">
+    <h2 class="section-title">Tests de Death Note</h2>
+    <div class="tests-grid">
+        <!-- Test de Personalidad -->
+        <div class="test-card" onclick="abrirTestPersonalidad()">
+            <div class="test-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h3>Test de Personalidad</h3>
+            <p>¿Qué personaje de Death Note eres? Descubre a qué personaje te pareces más según tu personalidad.</p>
+            <div class="test-badge">¡Popular!</div>
+        </div>
+
+        <!-- Test de Conocimiento -->
+        <div class="test-card" onclick="abrirTestConocimiento()">
+            <div class="test-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h3>Test de Conocimiento</h3>
+            <p>Demuestra cuánto sabes sobre el mundo de Death Note con este test de conocimiento.</p>
+            <div class="test-badge">¡Nuevo!</div>
+        </div>
+
+        <!-- Test de Lógica -->
+        <div class="test-card" onclick="abrirTestLogica()">
+            <div class="test-icon">
+                <i class="fas fa-chess"></i>
+            </div>
+            <h3>Test de Lógica</h3>
+            <p>Pon a prueba tu capacidad de razonamiento lógico con estos acertijos al estilo Death Note.</p>
+            <div class="test-badge">¡Nuevo!</div>
+        </div>
+    </div>
+</section>
 
 <footer class="footer-container death-note-font">
-    <div class="footer-section">
-        <h3>Acerca de</h3>
-        <p>Un rincón oscuro para los que deseen un mundo nuevo... o simplemente información.</p>
-    </div>
-
     <div class="footer-section">
         <h3>Enlaces Útiles</h3>
         <ul>
@@ -375,6 +427,7 @@
             <li><a href="#">El Cuaderno Prohibido</a></li>
             <li><a href="#">Susurros de Shinigami</a></li>
             <li><a href="#">Reglas del Juego</a></li>
+            <li><a href="/Principal/login/index.html" class="login-btn">Iniciar Sesión</a></li>
         </ul>
     </div>
 
@@ -399,5 +452,7 @@
 
 <script src="Principal/assets/JS/headerScroll.js"></script>
 <script src="Principal/assets/JS/navbarHamburger.js"></script>
+<script src="Principal/assets/JS/testConocimiento.js"></script>
+<script src="Principal/assets/JS/testLogica.js"></script>
 </body>
 </html>

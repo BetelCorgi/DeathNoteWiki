@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es" style="background-color: #000000; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Death Note Wiki - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/CSS/style.css">
+    <link rel="stylesheet" href="../assets/CSS/media.css">
+    <link rel="stylesheet" href="../assets/CSS/footer.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .dashboard-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .test-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .test-card.coming-soon {
+            opacity: 0.7;
+            filter: grayscale(50%);
+        }
+
+        .test-card.coming-soon::after {
+            content: 'Próximamente';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #d4af37;
+            color: #000;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .test-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .test-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #222;
+            border-radius: 5px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .result-character {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #d4af37;
+        }
+
+        .result-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .result-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .take-test-btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .take-test-btn:hover {
+            background: #e6c05c;
+            color: #000;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .result-tag {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+        }
+
+        /* Estilos para los resultados del test de conocimiento */
+        /* Estilos para los resultados del test de conocimiento */
+        .knowledge-result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .knowledge-result .result-title {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .knowledge-result .result-score {
+            margin: 20px 0;
+        }
+
+        .knowledge-result .score-percentage {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .knowledge-result .result-level {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .knowledge-result .result-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .knowledge-result .result-stat {
+            text-align: center;
+        }
+
+        .knowledge-result .stat-value {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+
+        .knowledge-result .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .knowledge-result .result-message {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 25px 0;
+            color: #ddd;
+        }
+
+        /* Estilos para los resultados del test de lógica */
+        .logic-result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logic-result .result-title {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .logic-result .result-profile {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logic-result .profile-icon {
+            width: 60px;
+            height: 60px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            flex-shrink: 0;
+        }
+
+        .logic-result .profile-info {
+            text-align: left;
+        }
+
+        .logic-result .profile-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .logic-result .test-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .logic-result .profile-description {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #ddd;
+            text-align: left;
+        }
+
+        .logic-result .profile-features {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .logic-result .profile-features h4 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .logic-result .features-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logic-result .features-list li {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Estilos comunes para los botones de acción */
+        .result-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .take-test-btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .take-test-btn:hover {
+            background: #e6c05c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Clases de nivel para el test de conocimiento */
+        .expert { --level-color: #4caf50; }
+        .advanced { --level-color: #8bc34a; }
+        .intermediate { --level-color: #ffc107; }
+        .beginner { --level-color: #ff9800; }
+        .newbie { --level-color: #f44336; }
+
+        .knowledge-result .score-circle {
+            border-color: var(--level-color, #d4af37);
+        }
+
+        .knowledge-result .score-percentage {
+            color: var(--level-color, #d4af37);
+        }
+
+        .knowledge-result .stat-value {
+            color: var(--level-color, #d4af37);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body id="bodyData">
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-left">
+                <ul class="nav-list">
+                    <li><a href="../Personajes/index.html">Personajes</a></li>
+                </ul>
+            </nav>
+
+            <div class="logo-container">
+                <a href="/index.html"><img src="../assets/images/LogoDeathNote.png" alt="Death Note Logo"
+                        class="logo"></a>
+            </div>
+
+            <nav class="nav-right">
+                <ul class="nav-list">
+                    <li><a href="../Datos/index.html">Datos</a></li>
+                    <li><a href="../Musica-multimedia/index.html">Media</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </button>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Tu Cuenta de Death Note</h1>
+            <p class="welcome-message" id="welcomeMessage">Bienvenido de vuelta, Usuario</p>
+        </div>
+
+        <h2 class="test-title">Tus Resultados de Test</h2>
+        
+        <div class="dashboard-grid" id="testResults">
+            <!-- Test 1: Personalidad -->
+            <div class="test-card" id="personality-test">
+                <h3 class="test-title">Test de Personalidad</h3>
+                <div id="personality-test-result">
+                    <p class="no-results">Aún no has realizado este test.</p>
+                    <a href="../../index.html#testPersonalidad" class="take-test-btn">Realizar Test</a>
+                </div>
+            </div>
+
+            <!-- Test 2: Lógica -->
+            <div class="test-card" id="logic-test">
+                <h3 class="test-title">Test de Lógica</h3>
+                <div id="logic-test-result">
+                    <p class="no-results">Aún no has realizado este test.</p>
+                    <a href="../../index.html#tests" class="take-test-btn">Tomar Test</a>
+                </div>
+            </div>
+
+            <!-- Test 3: Conocimiento -->
+            <div class="test-card" id="knowledge-test">
+                <h3 class="test-title">Test de Conocimiento</h3>
+                <div id="knowledge-test-result">
+                    <p class="no-results">Aún no has realizado este test.</p>
+                    <a href="../../index.html#tests" class="take-test-btn">Tomar Test</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = '../login/index.html';
+                return;
+            }
+
+            // Update welcome message
+            document.getElementById('welcomeMessage').textContent = `Bienvenido de vuelta, ${currentUser.username}`;
+
+            // Load test results
+            loadTestResults(currentUser);
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                sessionStorage.removeItem('currentUser');
+                window.location.href = '../login/index.html';
+            });
+
+            // Listen for storage events to update when test is completed
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'testCompleted') {
+                    const updatedUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                    if (updatedUser) {
+                        loadTestResults(updatedUser);
+                    }
+                }
+            });
+        });
+
+        function loadTestResults(user) {
+            if (!user.testResults || user.testResults.length === 0) {
+                return; // No hay resultados para mostrar
+            }
+
+            // Obtener los resultados más recientes de cada tipo de test
+            const personalityResults = user.testResults.filter(r => r.testType === 'personality');
+            const knowledgeResults = user.testResults.filter(r => r.testType === 'conocimiento');
+            const logicResults = user.testResults.filter(r => r.testType === 'logica');
+
+            // Mostrar resultados del test de personalidad
+            if (personalityResults.length > 0) {
+                const latestPersonality = personalityResults[0];
+                showPersonalityResult(latestPersonality);
+            }
+
+            // Mostrar resultados del test de conocimiento
+            if (knowledgeResults.length > 0) {
+                const latestKnowledge = knowledgeResults[0];
+                showKnowledgeResult(latestKnowledge);
+            } else {
+                document.getElementById('knowledge-test-result').innerHTML = `
+                    <div class="no-results">
+                        <p>No has realizado el test de conocimiento aún.</p>
+                        <a href="../../index.html#tests" class="take-test-btn">Realizar test</a>
+                    </div>
+                `;
+            }
+
+            // Mostrar resultados del test de lógica
+            if (logicResults.length > 0) {
+                const latestLogic = logicResults[0];
+                showLogicResult(latestLogic);
+            } else {
+                document.getElementById('logic-test-result').innerHTML = `
+                    <div class="no-results">
+                        <p>No has realizado el test de lógica aún.</p>
+                        <a href="../../index.html#tests" class="take-test-btn">Realizar test</a>
+                    </div>
+                `;
+            }
+        }
+
+        function showPersonalityResult(result) {
+            const characterImages = {
+                'Light Yagami': '../assets/images/Personajes/LightYagami.jpg',
+                'L Lawliet': '../assets/images/Personajes/L-Lawliet.jpg',
+                'Near': '../assets/images/Personajes/Near.jpg',
+                'Mello': '../assets/images/Personajes/Mello.jpg',
+                'Misa Amane': '../assets/images/Personajes/Misa-Amane.jpg'
+            };
+
+            const characterDescriptions = {
+                'Light Yagami': 'Eres un estratega nato con una fuerte convicción en tu propio sentido de la justicia. No temes tomar decisiones difíciles y estás dispuesto a asumir grandes responsabilidades para lograr tus objetivos.',
+                'L Lawliet': 'Tienes una mente analítica excepcional y un enfoque único para resolver problemas. Eres observador, metódico y no te dejas influenciar fácilmente por las opiniones de los demás.',
+                'Near': 'Eres extremadamente inteligente y analítico, con una gran capacidad para ver patrones donde otros no los ven. Prefieres trabajar en equipo y tomar decisiones basadas en la lógica pura.',
+                'Mello': 'Eres apasionado y determinado, dispuesto a tomar riesgos que otros no tomarían. Tu enfoque directo y tu voluntad de hacer lo que sea necesario te convierten en una fuerza a tener en cuenta.',
+                'Misa Amane': 'Eres leal y apasionada, dispuesta a hacer cualquier cosa por aquellos que amas. Tu corazón gobierna sobre tu mente, y aunque a veces puedes ser impulsiva, tus intenciones son siempre puras.'
+            };
+
+            const characterTags = {
+                'Light Yagami': ['Estratega', 'Decidido', 'Carismático', 'Manipulador'],
+                'L Lawliet': ['Analítico', 'Observador', 'Excéntrico', 'Lógico'],
+                'Near': ['Inteligente', 'Metódico', 'Paciente', 'Estratégico'],
+                'Mello': ['Apasionado', 'Audaz', 'Impulsivo', 'Determinado'],
+                'Misa Amane': ['Leal', 'Apasionada', 'Emocional', 'Devota']
+            };
+
+            const resultDate = formatDate(result.date);
+
+            const resultHtml = `
+                <div class="test-result">
+                    <div class="result-header">
+                        <img src="${characterImages[result.character] || '../assets/images/LogoDeathNote.png'}" 
+                             alt="${result.character}" 
+                             class="result-character">
+                        <div>
+                            <div class="result-name">${result.character}</div>
+                            <div class="result-date">Realizado el ${resultDate}</div>
+                        </div>
+                    </div>
+                    <div class="result-tags">
+                        ${characterTags[result.character]?.map(tag => 
+                            `<span class="result-tag">${tag}</span>`).join('') || ''}
+                    </div>
+                    <p class="result-description">
+                        ${characterDescriptions[result.character] || 'No hay descripción disponible para este personaje.'}
+                    </p>
+                    <a href="../../index.html#tests" class="take-test-btn">Realizar de nuevo</a>
+                </div>
+            `;
+
+            document.getElementById('personality-test-result').innerHTML = resultHtml;
+        }
+
+        function showKnowledgeResult(result) {
+            const resultDate = formatDate(result.date);
+            const percentage = Math.round((result.score / result.totalQuestions) * 100);
+            
+            // Definir niveles de conocimiento
+            let level = '';
+            let levelClass = '';
+            
+            if (percentage >= 90) {
+                level = 'Experto en Death Note';
+                levelClass = 'expert';
+            } else if (percentage >= 70) {
+                level = 'Conocedor Avanzado';
+                levelClass = 'advanced';
+            } else if (percentage >= 50) {
+                level = 'Fan Intermedio';
+                levelClass = 'intermediate';
+            } else if (percentage >= 30) {
+                level = 'Principiante';
+                levelClass = 'beginner';
+            } else {
+                level = 'Nuevo en Death Note';
+                levelClass = 'newbie';
+            }
+
+            const resultHtml = `
+                <div class="test-result knowledge-result ${levelClass}">
+                    <h3 class="result-title">Test de Conocimiento</h3>
+                    <div class="result-score">
+                        <div class="score-percentage">${percentage}%</div>
+                        <div class="result-level">${level}</div>
+                    </div>
+                    <div class="result-details">
+                        <div class="result-stat">
+                            <span class="stat-value">${result.score} de ${result.totalQuestions}</span>
+                            <span class="stat-label">Respuestas correctas</span>
+                        </div>
+                        ${result.timeSpent ? `
+                        <div class="result-stat">
+                            <span class="stat-value">${result.timeSpent}</span>
+                            <span class="stat-label">Tiempo</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <p class="result-message">
+                        ${getKnowledgeMessage(percentage)}
+                    </p>
+                    <div class="result-actions">
+                        <a href="../../index.html#tests" class="take-test-btn">Intentar de nuevo</a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('knowledge-test-result').innerHTML = resultHtml;
+        }
+
+        function showLogicResult(result) {
+            const resultDate = formatDate(result.date);
+            const profileType = result.profileType || 'estratega';
+            
+            const resultHtml = `
+                <div class="test-result logic-result">
+                    <h3 class="result-title">Test de Lógica</h3>
+                    <div class="result-profile">
+                        <div class="profile-icon">
+                            <i class="fas fa-${getLogicIcon(profileType)}"></i>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-name">${result.profile || 'Tu perfil lógico'}</div>
+                            <div class="test-date">Realizado el ${resultDate}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-description">
+                        <p>${getLogicDescription(profileType)}</p>
+                    </div>
+                    
+                    <div class="profile-features">
+                        <h4>Características principales:</h4>
+                        <ul class="features-list">
+                            ${getLogicFeatures(profileType).map(feature => 
+                                `<li>${feature}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <a href="../../index.html#tests" class="take-test-btn">Volver a intentar</a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('logic-test-result').innerHTML = resultHtml;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function getKnowledgeMessage(percentage) {
+            if (percentage >= 90) {
+                return '¡Increíble! Eres un verdadero experto en el universo de Death Note. Tu conocimiento es comparable al de los propios personajes de la serie. ¿Hay algo que no sepas?';
+            } else if (percentage >= 70) {
+                return '¡Excelente trabajo! Tienes un conocimiento muy sólido sobre Death Note. Con un poco más de estudio, podrías convertirte en un verdadero experto.';
+            } else if (percentage >= 50) {
+                return 'Buen trabajo, pero aún hay margen para mejorar. Sigue explorando el mundo de Death Note para convertirte en un verdadero conocedor.';
+            } else if (percentage >= 30) {
+                return 'Tu conocimiento sobre Death Note es básico. Te recomendamos ver la serie o leer el manga para mejorar tus resultados.';
+            } else {
+                return 'Parece que estás empezando a descubrir el mundo de Death Note. ¡No te rindas! La serie tiene mucho que ofrecer.';
+            }
+        }
+
+        function getLogicDescription(profileType) {
+            const descriptions = {
+                'light': 'Eres un estratega nato como Light Yagami. Tomas decisiones basadas en un fuerte sentido de la justicia personal y no temes asumir el control cuando es necesario. Tu mente analítica te permite ver soluciones donde otros solo ven problemas.',
+                'l': 'Tu forma de pensar es similar a la de L. Eres extremadamente analítico, metódico y no te dejas llevar por las emociones. Prefieres la lógica pura y la evidencia concreta sobre las suposiciones.',
+                'near': 'Como Near, tienes una mente brillante y estratégica. Eres paciente, observador y prefieres trabajar con un equipo en el que cada miembro aporte sus fortalezas. Tu enfoque metódico te permite ver patrones que otros pasan por alto.',
+                'mello': 'Eres apasionado y decidido como Mello. No temes tomar riesgos y confías en tus instintos. Tu enfoque directo y tu voluntad de hacer lo que sea necesario te convierten en una fuerza a tener en cuenta.',
+                'misa': 'Eres emocional e intuitivo/a como Misa Amane. Te guías más por el corazón que por la lógica pura, y tu lealtad hacia aquellos que amas es inquebrantable. Aunque a veces puedes ser impulsivo/a, tus intenciones son siempre puras.'
+            };
+            
+            return descriptions[profileType] || 'Tu perfil lógico es único. Combinas diferentes enfoques para resolver problemas de manera efectiva y creativa.';
+        }
+
+        function getLogicFeatures(profileType) {
+            const features = {
+                'light': ['Estratégico', 'Manipulador', 'Carismático', 'Decidido', 'Calculador'],
+                'l': ['Analítico', 'Observador', 'Metódico', 'Lógico', 'Excéntrico'],
+                'near': ['Inteligente', 'Paciente', 'Estratégico', 'Colaborativo', 'Detallista'],
+                'mello': ['Apasionado', 'Audaz', 'Impulsivo', 'Determinado', 'Competitivo'],
+                'misa': ['Leal', 'Apasionada', 'Emocional', 'Devota', 'Intuitiva']
+            };
+            
+            return features[profileType] || ['Creativo', 'Adaptable', 'Intuitivo', 'Resolutivo', 'Perspicaz'];
+        }
+        
+        // Función para obtener el ícono según el tipo de perfil lógico
+        function getLogicIcon(profileType) {
+            const icons = {
+                'light': 'crown',
+                'l': 'search',
+                'near': 'puzzle-piece',
+                'mello': 'fire',
+                'misa': 'heart'
+            };
+            return icons[profileType] || 'user';
+        }
+
+        // Function to save test result (called from the test page)
+        function saveTestResult(result) {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                return; // Usuario no ha iniciado sesión
+            }
+
+            // Asegurarse de que el resultado tenga una fecha
+            if (!result.date) {
+                result.date = new Date().toISOString();
+            }
+
+            // Obtener resultados existentes o inicializar array vacío
+            const testResults = currentUser.testResults || [];
+            
+            // Filtrar resultados del mismo tipo para mantener solo el más reciente
+            const filteredResults = testResults.filter(r => r.testType !== result.testType);
+            
+            // Agregar el nuevo resultado al principio del array
+            filteredResults.unshift(result);
+            
+            // Actualizar los resultados del usuario
+            currentUser.testResults = filteredResults;
+            
+            // Actualizar sessionStorage
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Actualizar localStorage si el usuario eligió "Recordarme"
+            if (localStorage.getItem('rememberMe') === 'true') {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.username === currentUser.username);
+                
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }
+            
+            // Notificar al dashboard para que actualice la vista
+            if (window.parent && window.parent.updateDashboard) {
+                window.parent.updateDashboard();
+            }
+        }
+        
+        // Función para guardar el resultado del test de personalidad (compatibilidad con código existente)
+        function savePersonalityTestResult(character) {
+            saveTestResult({
+                testType: 'personality',
+                character: character,
+                date: new Date().toISOString()
+            });
+        }
+        
+        // Función para guardar el resultado del test de conocimiento
+        function saveKnowledgeTestResult(score, totalQuestions, timeSpent) {
+            saveTestResult({
+                testType: 'conocimiento',
+                score: score,
+                totalQuestions: totalQuestions,
+                timeSpent: timeSpent,
+                date: new Date().toISOString()
+            });
+        }
+        
+        // Función para guardar el resultado del test de lógica
+        function saveLogicTestResult(profile, profileType) {
+            saveTestResult({
+                testType: 'logica',
+                profile: profile,
+                profileType: profileType,
+                date: new Date().toISOString()
+            });
+            
+            // Notificar a otras pestañas que se ha completado un test
+            localStorage.setItem('testCompleted', Date.now().toString());
+            localStorage.removeItem('testCompleted');
+        }
+    </script>
+</body>
+
+</html>

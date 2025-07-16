@@ -3,16 +3,81 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Death Note Wiki</title>
+    <title>Death Note Wiki - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/CSS/style.css">
     <link rel="stylesheet" href="../assets/CSS/media.css">
     <link rel="stylesheet" href="../assets/CSS/register.css">
     <link rel="stylesheet" href="../assets/CSS/footer.css">
-
-    <!-- Fuente estilo Death Note o similar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .auth-tab {
+            background: #1a1a1a;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            background: #d4af37;
+            color: #000;
+        }
+        
+        .auth-tab:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .auth-tab:last-child {
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .success-message {
+            color: #4CAF50;
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 
 <body id="bodyData">
@@ -47,23 +112,161 @@
     <section class="deathnote-login-container">
         <div class="deathnote-login-card">
             <div class="deathnote-login-header">
-                <img src="../assets/images/datos/2017.jpg" alt="Ryuk"
-                    class="deathnote-ryuk-img">
-                <h2 class="deathnote-login-title"><i class="fas fa-book-dead"></i> Death Note Login</h2>
+                <img src="../assets/images/datos/2017.jpg" alt="Ryuk" class="deathnote-ryuk-img">
+                <h2 class="deathnote-login-title"><i class="fas fa-book-dead"></i> <span id="auth-title">Death Note Login</span></h2>
             </div>
-            <form class="deathnote-login-form">
-                <div class="deathnote-form-group">
-                    <label for="username"><i class="fas fa-user"></i> Usuario</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="deathnote-form-group">
-                    <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="deathnote-login-btn">Escribir tu nombre</button>
-            </form>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">Iniciar Sesión</div>
+                <div class="auth-tab" id="register-tab">Crear Cuenta</div>
+            </div>
+            
+            <div id="login-form" class="auth-form active">
+                <form id="loginForm" class="deathnote-login-form">
+                    <div class="deathnote-form-group">
+                        <label for="login-username"><i class="fas fa-user"></i> Usuario</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="deathnote-form-group">
+                        <label for="login-password"><i class="fas fa-lock"></i> Contraseña</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <div id="login-error" class="error-message"></div>
+                    <button type="submit" class="deathnote-login-btn">Iniciar Sesión</button>
+                </form>
+            </div>
+            
+            <div id="register-form" class="auth-form">
+                <form id="registerForm" class="deathnote-login-form">
+                    <div class="deathnote-form-group">
+                        <label for="register-username"><i class="fas fa-user"></i> Nombre de Usuario</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="deathnote-form-group">
+                        <label for="register-email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="deathnote-form-group">
+                        <label for="register-password"><i class="fas fa-lock"></i> Contraseña</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <div class="deathnote-form-group">
+                        <label for="confirm-password"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
+                    </div>
+                    <div id="register-message" class="success-message"></div>
+                    <div id="register-error" class="error-message"></div>
+                    <button type="submit" class="deathnote-login-btn">Crear Cuenta</button>
+                </form>
+            </div>
         </div>
     </section>
+    
+    <script>
+        // Toggle between login and register forms
+        document.getElementById('login-tab').addEventListener('click', function() {
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login-form').classList.add('active');
+            document.getElementById('register-form').classList.remove('active');
+            document.getElementById('auth-title').textContent = 'Death Note Login';
+        });
+        
+        document.getElementById('register-tab').addEventListener('click', function() {
+            document.getElementById('register-tab').classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('register-form').classList.add('active');
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('auth-title').textContent = 'Death Note Register';
+        });
+        
+        // Handle user registration
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showError('register-error', 'Las contraseñas no coinciden');
+                return;
+            }
+            
+            // Get existing users or initialize empty array
+            const users = JSON.parse(localStorage.getItem('deathNoteUsers')) || [];
+            
+            // Check if username already exists
+            if (users.some(user => user.username === username)) {
+                showError('register-error', 'El nombre de usuario ya está en uso');
+                return;
+            }
+            
+            // Add new user
+            const newUser = {
+                id: Date.now().toString(),
+                username,
+                email,
+                password, // In a real app, you should hash the password
+                createdAt: new Date().toISOString(),
+                testResults: []
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('deathNoteUsers', JSON.stringify(users));
+            
+            // Show success message
+            document.getElementById('register-message').textContent = '¡Cuenta creada con éxito! Por favor inicia sesión.';
+            document.getElementById('register-error').textContent = '';
+            
+            // Clear form
+            document.getElementById('registerForm').reset();
+            
+            // Switch to login form after 2 seconds
+            setTimeout(() => {
+                document.getElementById('login-tab').click();
+                document.getElementById('register-message').textContent = '';
+            }, 2000);
+        });
+        
+        // Handle user login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            const users = JSON.parse(localStorage.getItem('deathNoteUsers')) || [];
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Store current user in session
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect to dashboard
+                window.location.href = '../dashboard/index.html';
+            } else {
+                showError('login-error', 'Usuario o contraseña incorrectos');
+            }
+        });
+        
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+            }
+        }
+        
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (currentUser) {
+                window.location.href = '../dashboard/index.html';
+            }
+        });
+    </script>
 </body>
 
 </html>
